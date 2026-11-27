@@ -5,7 +5,6 @@
 <title>لوحة المعلم</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap">
 <style>
-/* نفس CSS المرحلة 1.4 (مختصر للتوفير — استخدم نفس الملف السابق) */
 :root{--bg:#e9eee9;--pa:#fbfcfa;--ink:#10231f;--mu:#5c6f69;--pr:#0f5e54;--on:#fff;--hd:#0b4a42;--go:#e0a526;--er:#b3402e;--bd:#cfd9d3;--ok:#1e7a4a;color-scheme:light}
 @media(prefers-color-scheme:dark){:root{--bg:#0d1412;--pa:#16201d;--ink:#e8f0ec;--mu:#92a69f;--pr:#4fd1b8;--on:#07201b;--hd:#14302a;--go:#f0b93b;--er:#ff8a73;--bd:#2a3a35;--ok:#4fd18a;color-scheme:dark}}
 *{box-sizing:border-box}
@@ -94,20 +93,17 @@ function toast(t){const e=$('#ts');e.textContent=t;e.classList.add('on');setTime
 function closeSh(){$('#sh').classList.remove('on');$('#ov').classList.remove('on')}
 $('#ov').onclick=closeSh;
 
-// ─── حسابات مشتقة ───
 const clsMap=()=>{const m={};classes.forEach(c=>m[c.id]=c);return m};
 const perTask=()=>{const by={};subs.forEach(s=>{(by[s.task_id]=by[s.task_id]||{})[s.student_id]=(by[s.task_id]?.[s.student_id]||[]).concat([s])});return by};
 const latestOf=(list)=>[...list].sort((a,b)=>new Date(b.submitted_at)-new Date(a.submitted_at))[0];
 const studentName=id=>students.find(s=>s.id===id)?.full_name||'طالب';
 
-// ─── بيانات ───
 async function loadAll(){
   [classes,tasks,subs,students]=await Promise.all([
     api.getClasses(), api.getTasks(), api.getSubmissionsForTeacher(), api.getStudentsInMyClasses()
   ]);
 }
 
-// ─── نماذج ───
 function formTask(t){
   const classOpts=classes.map(c=>`<option value="${c.id}" ${t&&t.class_id===c.id?'selected':''}>${esc(c.name)} (${c.code})</option>`).join('');
   const dl = t ? new Date(t.deadline) : null;
@@ -182,7 +178,6 @@ function filesHTML(files){
   }).join('')}</div>`;
 }
 
-// ─── عرض ───
 async function render(){
   if(!me) return;
   $('#topName').textContent='أهلاً '+me.full_name;
@@ -298,7 +293,6 @@ async function render(){
 
   $('#app').innerHTML=h;
 
-  // ربط الأحداث
   const q=$('#q');if(q)q.oninput=()=>{search=q.value.trim();render();q.focus()};
   document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{tab=b.dataset.t;fltStatus='all';search='';render()});
   document.querySelectorAll('[data-fc]').forEach(b=>b.onclick=()=>{fltClass=b.dataset.fc||null;sel=null;render()});
@@ -325,7 +319,6 @@ async function refresh(){await loadAll();render()}
 $('#fab').onclick=()=>{if(!classes.length){toast('أنشئ شعبة أولاً');tab='classes';render();return}formTask()};
 $('#logout').onclick=async()=>{await api.signOut();location.href='auth.html'};
 
-// ─── بدء ───
 (async()=>{
   me = await api.requireAuth('teacher');
   if(!me)return;
