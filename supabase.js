@@ -3,8 +3,8 @@
 // ═══════════════════════════════════════════════════════════
 
 // ⚠️ استبدل القيمتين بمعلومات مشروعك من Settings → API
-const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
-const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';
+const SUPABASE_URL = 'sb_publishable_MB9oG4sohgXBHV6pg3ae9w_X5KVwIBd';
+const SUPABASE_ANON_KEY = 'sb_publishable_MB9oG4sohgXBHV6pg3ae9w_X5KVwIBd';
 
 // تحميل مكتبة Supabase من CDN (يتطلب إنترنت)
 // نستخدم UMD build عشان يشتغل بدون bundler
