@@ -3,7 +3,7 @@
 // ═══════════════════════════════════════════════════════════
 
 // ⚠️ استبدل القيمتين بمعلومات مشروعك من Settings → API
-const SUPABASE_URL = 'https://roikpeuqdilrpexagigw.supabase.co/rest/v1/';
+const SUPABASE_URL = 'https://roikpeuqdlirpexagjw.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_MB9oG4sohgXBHV6pg3ae9w_X5KVwIBd';
 
 // تحميل مكتبة Supabase من CDN (يتطلب إنترنت)
