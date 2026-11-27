@@ -3,7 +3,7 @@
 // ═══════════════════════════════════════════════════════════
 
 // ⚠️ ضع الرابط هنا (يبدأ بـ https وينتهي بـ .co فقط، بدون أي إضافات)
-const SUPABASE_URL = 'https://roikpeuqdlirpexagjw.supabase.co';
+const SUPABASE_URL = 'https://roikpeuqdilrpexagigw.supabase.co';
 // ⚠️ ضع المفتاح هنا (يبدأ بـ sb_publishable_)
 const SUPABASE_ANON_KEY = 'sb_publishable_MB9oG4sohgXBHX6pg3ae9w_X5KVWIBd';
 
