@@ -10,8 +10,11 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.6 "Readex Pro",system-ui,"Segoe UI",Tahoma,sans-serif}
 button,input,textarea,select{font:inherit}
-.top{background:var(--hd);color:#fff;padding:calc(18px + env(safe-area-inset-top,0px)) 18px 70px}
+.top{background:var(--hd);color:#fff;padding:calc(18px + env(safe-area-inset-top,0px)) 18px 70px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.top>div:first-child{flex:1;min-width:0}
 .top h1{margin:0;font-size:1.3rem}.top small{opacity:.75}
+.bell{position:relative;background:rgba(255,255,255,.15);border:0;color:#fff;width:42px;height:42px;border-radius:50%;font-size:1.2rem;cursor:pointer;flex:none}
+.bell .dot{position:absolute;top:4px;inset-inline-end:4px;background:var(--er);color:#fff;font-size:.62rem;font-weight:700;padding:0 5px;border-radius:10px;min-width:16px;line-height:1.5;border:2px solid var(--hd)}
 main{max-width:720px;margin:-52px auto 0;padding:0 14px 110px}
 .stats{display:flex;background:var(--pa);border-radius:18px;box-shadow:0 10px 28px #0b4a4230;margin-bottom:14px}
 .stats div{flex:1;padding:14px 8px;text-align:center;color:var(--mu);font-size:.8rem}.stats div+div{border-inline-start:1px solid var(--bd)}
@@ -28,6 +31,8 @@ main{max-width:720px;margin:-52px auto 0;padding:0 14px 110px}
 .cut::before{inset-inline-start:-9px}.cut::after{inset-inline-end:-9px}
 .ft{display:flex;justify-content:space-between;font-size:.84rem;color:var(--mu);flex-wrap:wrap;gap:4px}
 .st{position:absolute;inset-inline-end:14px;top:12px;transform:rotate(-7deg);border:2px solid var(--pr);color:var(--pr);padding:1px 9px;border-radius:7px;font-weight:700;font-size:.78rem}.st.cl{border-color:var(--er);color:var(--er)}
+.st.soon{border-color:var(--go);color:var(--go);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 .acts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.acts button{flex:1;min-width:70px;padding:8px 4px;border-radius:10px;border:1px solid var(--bd);background:none;color:var(--ink);cursor:pointer;font-size:.85rem}
 .acts .p{background:var(--pr);color:var(--on);border-color:var(--pr)}.acts .d{color:var(--er);flex:.6}
 .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;margin-bottom:4px}.chip{flex:none;border:1px solid var(--bd);background:var(--pa);color:var(--mu);padding:6px 14px;border-radius:20px;cursor:pointer;white-space:nowrap}.chip.a{border-color:var(--pr);color:var(--pr);font-weight:700}
@@ -39,7 +44,6 @@ main{max-width:720px;margin:-52px auto 0;padding:0 14px 110px}
 .badge-status.pending{border-color:var(--go);color:var(--go);background:color-mix(in srgb,var(--go) 12%,transparent)}
 .badge-status.accepted{border-color:var(--ok);color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent)}
 .badge-status.rejected{border-color:var(--er);color:var(--er);background:color-mix(in srgb,var(--er) 12%,transparent)}
-.badge-status.reviewed{border-color:var(--mu);color:var(--mu)}
 .fl{margin-top:8px;padding:8px 12px;background:var(--bg);border-radius:10px;font-size:.88rem}
 .tnote{margin-top:8px;padding:8px 12px;border-radius:10px;font-size:.88rem;border-inline-start:3px solid var(--pr);background:color-mix(in srgb,var(--pr) 8%,transparent)}
 .sacts{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
@@ -66,41 +70,112 @@ details{margin-top:8px}summary{cursor:pointer;color:var(--pr);font-size:.85rem;f
 .stu-card .stat-row span{padding:1px 8px;border-radius:10px;background:var(--bg)}
 .stu-card .stat-row .ok{color:var(--ok)}.stu-card .stat-row .warn{color:var(--go)}.stu-card .stat-row .bad{color:var(--er)}
 .empty-cls{padding:16px;text-align:center;background:var(--pa);border-radius:14px;border:2px dashed var(--bd);color:var(--mu);margin-bottom:14px;cursor:pointer}
+.file-list{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.file-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--pa);border:1px solid var(--bd);border-radius:10px;font-size:.85rem}
+.file-item .ic{flex:none;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff}
+.file-item .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:start}
+.file-item .sz{color:var(--mu);font-size:.75rem;flex:none}
+.file-item .dl{flex:none;background:var(--pr);color:var(--on);border:0;padding:5px 10px;border-radius:7px;font-size:.75rem;font-weight:600;cursor:pointer;text-decoration:none}
+.file-item .pv{flex:none;background:none;border:1px solid var(--bd);color:var(--ink);padding:5px 8px;border-radius:7px;font-size:.75rem;cursor:pointer}
+.file-empty{font-size:.8rem;color:var(--mu);font-style:italic;padding:4px 0}
+/* ⭐ جديد */
+.search-wrap{margin-bottom:14px}
+.search-wrap input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--bd);background:var(--pa);color:var(--ink)}
+.toolbar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar button{flex:1;min-width:120px;background:var(--pa);border:1px solid var(--bd);padding:9px;border-radius:10px;cursor:pointer;font-size:.85rem;color:var(--ink);font-weight:600}
+.toolbar .export{color:var(--pr);border-color:var(--pr)}
+.toolbar .danger{color:var(--er);border-color:var(--er)}
+.notif-item{padding:12px 14px;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .15s}
+.notif-item:hover{background:var(--bg)}
+.notif-item.unread{background:color-mix(in srgb,var(--pr) 6%,var(--pa))}
+.notif-item:last-child{border-bottom:0}
+.notif-item .t{font-weight:600;font-size:.92rem;margin-bottom:2px}
+.notif-item .b{font-size:.85rem;color:var(--mu)}
+.notif-item .w{font-size:.72rem;color:var(--mu);margin-top:4px}
+.missing-item{padding:10px 12px;background:var(--bg);border-radius:10px;margin-top:6px;display:flex;justify-content:space-between;align-items:center;font-size:.85rem}
+.missing-item .ava{width:28px;height:28px;font-size:.75rem}
 button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--go);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style></head><body>
-<div class="top"><small>لوحة التحكم</small><h1>إدارة الأعمال · المهام والتسليمات</h1></div>
+<div class="top">
+  <div><small>لوحة التحكم</small><h1>إدارة الأعمال · المهام والتسليمات</h1></div>
+  <button class="bell" id="bell" title="الإشعارات">🔔<span class="dot" id="bellDot" style="display:none">0</span></button>
+</div>
 <main id="app"></main>
 <button class="fab" id="fab" title="مهمة جديدة">+</button>
 <div class="ov" id="ov"></div><section class="sh" id="sh"></section><div class="ts" id="ts"></div>
 <script>
+/* ===== IndexedDB للملفات ===== */
+const IDB={
+ db:null,
+ open(){if(this.db)return Promise.resolve(this.db);return new Promise((res,rej)=>{
+   const req=indexedDB.open('edms-files',1);
+   req.onupgradeneeded=()=>{req.result.createObjectStore('files',{keyPath:'id'})};
+   req.onsuccess=()=>{this.db=req.result;res(this.db)};req.onerror=()=>rej(req.error);
+ })},
+ async put(file){
+  const db=await this.open();const id='f_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);
+  const rec={id,blob:file,name:file.name,size:file.size,type:file.type||'application/octet-stream'};
+  return new Promise((res,rej)=>{const tx=db.transaction('files','readwrite');tx.objectStore('files').put(rec);
+   tx.oncomplete=()=>res({fileId:id,name:rec.name,size:rec.size,type:rec.type});tx.onerror=()=>rej(tx.error)})},
+ async get(id){const db=await this.open();return new Promise((res,rej)=>{
+   const tx=db.transaction('files','readonly');const r=tx.objectStore('files').get(id);
+   r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})},
+ async delete(id){const db=await this.open();return new Promise((res,rej)=>{
+   const tx=db.transaction('files','readwrite');tx.objectStore('files').delete(id);
+   tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error)})},
+ async deleteMany(ids){for(const id of ids)await this.delete(id)},
+ async clearAll(){const db=await this.open();return new Promise((res,rej)=>{
+   const tx=db.transaction('files','readwrite');tx.objectStore('files').clear();
+   tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error)})}
+};
+const MAX_SIZE=10*1024*1024;
+const ALLOWED=['application/pdf','image/png','image/jpeg','image/jpg','image/webp','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/zip','text/plain'];
+function fileIcon(type,name){
+ const t=(type||'').toLowerCase(),n=(name||'').toLowerCase();
+ if(t.includes('pdf')||n.endsWith('.pdf'))return{label:'PDF',color:'#b3402e'};
+ if(t.startsWith('image/')||/\.(png|jpe?g|webp|gif)$/.test(n))return{label:'IMG',color:'#0f5e54'};
+ if(t.includes('word')||/\.(docx?|rtf)$/.test(n))return{label:'DOC',color:'#1e5fa8'};
+ if(t.includes('zip')||/\.(zip|rar|7z)$/.test(n))return{label:'ZIP',color:'#8a5a1e'};
+ return{label:'FILE',color:'#5c6f69'};
+}
+function humanSize(b){if(!b)return'0';if(b<1024)return b+' B';if(b<1024*1024)return (b/1024).toFixed(1)+' KB';return (b/1024/1024).toFixed(2)+' MB'}
+async function downloadFile(fileId,name){
+ const rec=await IDB.get(fileId);if(!rec)return toast('الملف غير موجود');
+ const url=URL.createObjectURL(rec.blob);const a=document.createElement('a');
+ a.href=url;a.download=name||rec.name;document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+async function previewFile(fileId,name,type){
+ const rec=await IDB.get(fileId);if(!rec)return toast('الملف غير موجود');
+ const url=URL.createObjectURL(rec.blob);const t=(type||rec.type||'').toLowerCase();
+ if(t.startsWith('image/')){
+  $('#sh').innerHTML=`<div class="grip"></div><h2 style="margin-bottom:10px">${esc(name)}</h2><img src="${url}" style="max-width:100%;border-radius:12px;display:block;margin:auto"><button class="btn" id="cl">إغلاق</button>`;
+  $('#sh').classList.add('on');$('#ov').classList.add('on');
+  $('#cl').onclick=()=>{URL.revokeObjectURL(url);closeSh()};
+ }else{window.open(url,'_blank');setTimeout(()=>URL.revokeObjectURL(url),60000)}
+}
+
 /* ===== طبقة البيانات ===== */
 const DB={get(k){try{return JSON.parse(localStorage.getItem(k))||[]}catch(e){return[]}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const genCode=()=>{const c='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<6;i++)s+=c[Math.floor(Math.random()*c.length)];return s};
 const api={
- // الشعب
  async getClasses(){return DB.get('classes').sort((a,b)=>b.id-a.id)},
  async saveClass(c){const a=DB.get('classes'),i=a.findIndex(x=>x.id===c.id);i>=0?a[i]=c:a.push(c);DB.set('classes',a)},
- async deleteClass(id){
-   DB.set('classes',DB.get('classes').filter(c=>c.id!==id));
-   // فصل المهام عن الشعبة المحذوفة (تبقى بس orphaned-class)
-   const t=DB.get('tasks').map(x=>x.classId===id?{...x,classId:null}:x);DB.set('tasks',t);
- },
+ async deleteClass(id){DB.set('classes',DB.get('classes').filter(c=>c.id!==id));DB.set('tasks',DB.get('tasks').map(x=>x.classId===id?{...x,classId:null}:x))},
  async classCodeExists(code,exceptId){return DB.get('classes').some(c=>c.code===code&&c.id!==exceptId)},
-
- // المهام
  async getTasks(){return DB.get('tasks')},
  async saveTask(t){const a=DB.get('tasks'),i=a.findIndex(x=>x.id===t.id);i>=0?a[i]=t:a.push(t);DB.set('tasks',a)},
  async deleteTask(id){
   DB.set('tasks',DB.get('tasks').filter(t=>t.id!==id));
-  const s=DB.get('subs').map(x=>x.taskId===id?{...x,orphaned:true}:x);DB.set('subs',s);
+  const subs=DB.get('subs'),toDelete=[];
+  subs.forEach(s=>{if(s.taskId===id&&s.files)s.files.forEach(f=>toDelete.push(f.fileId))});
+  DB.set('subs',subs.map(x=>x.taskId===id?{...x,orphaned:true}:x));
+  if(toDelete.length)IDB.deleteMany(toDelete).catch(()=>{});
  },
-
- // التسليمات
  async getAllSubmissions(){return DB.get('subs').filter(s=>!s.orphaned).sort((a,b)=>b.at-a.at)},
  async updateSubmissionStatus(id,status,teacherNote){
-  const a=DB.get('subs'),i=a.findIndex(x=>x.id===id);
-  if(i<0)return false;
+  const a=DB.get('subs'),i=a.findIndex(x=>x.id===id);if(i<0)return false;
   a[i]={...a[i],status,teacherNote:teacherNote??a[i].teacherNote??'',reviewedAt:Date.now()};
   DB.set('subs',a);return true;
  },
@@ -108,20 +183,15 @@ const api={
   const subs=DB.get('subs').filter(s=>s.taskId===taskId&&!s.orphaned);
   const by={};subs.forEach(s=>(by[s.student]=by[s.student]||[]).push(s));
   let pending=0,accepted=0,rejected=0,reviewed=0;
-  Object.values(by).forEach(list=>{
-   list.sort((a,b)=>b.at-a.at);const st=list[0].status||'pending';
+  Object.values(by).forEach(list=>{list.sort((a,b)=>b.at-a.at);const st=list[0].status||'pending';
    if(st==='pending')pending++;else if(st==='accepted')accepted++;
-   else if(st==='rejected')rejected++;else if(st==='reviewed')reviewed++;
-  });
+   else if(st==='rejected')rejected++;else if(st==='reviewed')reviewed++;});
   return {pending,accepted,rejected,reviewed,total:Object.keys(by).length};
  },
-
- // ⭐ الطلاب (من التسليمات + من سجّلوا دخول)
  async getAllStudents(){
   const subs=DB.get('subs').filter(s=>!s.orphaned);
   const students=DB.get('students')||[];
-  const map={};
-  students.forEach(s=>{map[s.name]=map[s.name]||{name:s.name,classId:s.classId,firstSeen:s.at}});
+  const map={};students.forEach(s=>{map[s.name]=map[s.name]||{name:s.name,classId:s.classId,firstSeen:s.at}});
   subs.forEach(s=>{map[s.student]=map[s.student]||{name:s.student,classId:s.classId,firstSeen:s.at}});
   return Object.values(map);
  }
@@ -134,12 +204,116 @@ const loc=ms=>new Date(ms-new Date().getTimezoneOffset()*6e4).toISOString().slic
 const col=n=>'hsl('+([...n].reduce((a,c)=>a+c.charCodeAt(0),0)*37%360)+' 42% 36%)';
 const stLabel=st=>({pending:'بانتظار المراجعة',accepted:'مقبول ✓',rejected:'مرفوض ✗',reviewed:'تمت المراجعة'}[st||'pending']);
 const stClass=st=>({pending:'pending',accepted:'accepted',rejected:'rejected',reviewed:'reviewed'}[st||'pending']);
-let tab='tasks',sel=null,fltStatus='all',fltClass=0,clsSel=0;
+const isSoon=t=>isOpen(t)&&t.deadline-Date.now()<24*3600*1000;
+let tab='tasks',sel=null,fltStatus='all',fltClass=0,search='';
 function toast(t){const e=$('#ts');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2200)}
 function closeSh(){$('#sh').classList.remove('on');$('#ov').classList.remove('on')}
 $('#ov').onclick=closeSh;
 
-/* ===== نماذج ===== */
+/* ⭐ الإشعارات (محسوبة لحظياً) */
+function notifSeenKey(){return 'notifSeen_teacher'}
+function getSeen(){try{return +(localStorage.getItem(notifSeenKey())||0)}catch(e){return 0}}
+function setSeen(t){try{localStorage.setItem(notifSeenKey(),t)}catch(e){}}
+function computeNotifs(tasks,subs){
+ const seen=getSeen(),notifs=[];
+ // تسليمات جديدة
+ subs.forEach(s=>{
+   if(s.at>seen){
+     const t=tasks.find(x=>x.id===s.taskId);
+     notifs.push({key:'sub_'+s.id,at:s.at,type:'sub',
+       title:'تسليم جديد من '+s.student,
+       body:(t?t.title:'مهمة')+' · '+fmt(s.at),
+       taskId:s.taskId,student:s.student});
+   }
+ });
+ // مهام قاربت تنتهي (مفتوحة + أقل من 24 ساعة + ما في تسليمات كافية)
+ tasks.forEach(t=>{
+   if(isSoon(t)){
+     const subsCount=new Set(subs.filter(s=>s.taskId===t.id).map(s=>s.student)).size;
+     notifs.push({key:'soon_'+t.id,at:t.deadline-24*3600*1000,type:'soon',
+       title:'مهمة تنتهي قريباً: '+t.title,
+       body:'الموعد: '+fmt(t.deadline)+' · '+subsCount+' طالب سلّم',
+       taskId:t.id});
+   }
+ });
+ // تسليمات بانتظار المراجعة > 24 ساعة
+ const byStudentTask={};
+ subs.forEach(s=>{const k=s.taskId+'|'+s.student;if(!byStudentTask[k]||s.at>byStudentTask[k].at)byStudentTask[k]=s});
+ Object.values(byStudentTask).forEach(s=>{
+   if((s.status||'pending')==='pending'&&Date.now()-s.at>24*3600*1000){
+     const t=tasks.find(x=>x.id===s.taskId);
+     notifs.push({key:'wait_'+s.id,at:s.at,type:'wait',
+       title:'بانتظار المراجعة منذ يوم: '+s.student,
+       body:(t?t.title:'')+' · سلّم '+fmt(s.at),
+       taskId:s.taskId,student:s.student});
+   }
+ });
+ return notifs.sort((a,b)=>b.at-a.at);
+}
+function updateBell(notifs){
+ const unseen=notifs.filter(n=>n.at>getSeen()).length;
+ const dot=$('#bellDot');
+ if(unseen){dot.style.display='';dot.textContent=unseen>9?'9+':unseen}
+ else dot.style.display='none';
+}
+function notifSheet(notifs){
+ const seen=getSeen();
+ $('#sh').innerHTML=`<div class="grip"></div><h2>الإشعارات</h2>
+ ${notifs.length?notifs.slice(0,50).map(n=>{
+   const unread=n.at>seen;
+   return `<div class="notif-item ${unread?'unread':''}" data-nt="${n.taskId||''}" data-ts="${n.type}">
+     <div class="t">${esc(n.title)}</div>
+     <div class="b">${esc(n.body)}</div>
+     <div class="w">${fmt(n.at)}</div>
+   </div>`;
+ }).join(''):'<div class="em">ما في إشعارات جديدة</div>'}
+ <button class="btn" id="markRead" style="background:var(--bg);color:var(--pr);border:1px solid var(--pr)">تحديد الكل كمقروء</button>`;
+ $('#sh').classList.add('on');$('#ov').classList.add('on');
+ $('#markRead').onclick=()=>{setSeen(Date.now());closeSh();render()};
+ $('#sh').querySelectorAll('[data-nt]').forEach(el=>el.onclick=()=>{
+   const tid=el.dataset.nt,type=el.dataset.ts;
+   setSeen(Date.now());
+   if(tid){sel=+tid;tab='subs';fltStatus=type==='wait'?'pending':'all';fltClass=0}
+   closeSh();render();scrollTo(0,0);
+ });
+}
+
+/* ⭐ تصدير CSV */
+function exportCSV(filename,rows){
+ // BOM عشان Excel يفتح العربي صح
+ const bom='\uFEFF';
+ const escapeCell=v=>`"${String(v??'').replace(/"/g,'""')}"`;
+ const csv=bom+rows.map(r=>r.map(escapeCell).join(',')).join('\r\n');
+ const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');a.href=url;a.download=filename;
+ document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+function exportTaskReport(t,subs,students){
+ const taskSubs=subs.filter(s=>s.taskId===t.id&&!s.orphaned);
+ const byStudent={};taskSubs.forEach(s=>{(byStudent[s.student]=byStudent[s.student]||[]).push(s)});
+ const classStudents=students.filter(s=>s.classId===t.classId);
+ const rows=[
+   ['المهمة',t.title],
+   ['الموعد',fmt(t.deadline)],
+   ['الحالة',isOpen(t)?'مفتوحة':'مغلقة'],
+   [''],
+   ['الطالب','عدد النسخ','آخر تسليم','الحالة','الملفات','ملاحظة المعلم']
+ ];
+ classStudents.forEach(st=>{
+   const list=(byStudent[st.name]||[]).sort((a,b)=>b.at-a.at);
+   if(!list.length){rows.push([st.name,0,'—','لم يسلّم','—','']);return}
+   const latest=list[0];
+   const files=(latest.files||[]).map(f=>f.name).join(' | ')||latest.fileName||'—';
+   rows.push([st.name,list.length,fmt(latest.at),stLabel(latest.status).replace(/[✓✗]/g,'').trim(),files,latest.teacherNote||'']);
+ });
+ // طلاب سلّموا بس مش مسجلين بالقائمة (احتياط)
+ Object.keys(byStudent).forEach(n=>{if(!classStudents.find(s=>s.name===n)){const l=byStudent[n].sort((a,b)=>b.at-a.at);rows.push([n,l.length,fmt(l[0].at),stLabel(l[0].status),'—',''])}});
+ exportCSV('report_'+t.title.replace(/\s+/g,'_')+'.csv',rows);
+ toast('تم تصدير التقرير');
+}
+
 function formTask(t){
  const classes=DB.get('classes');
  const classOpts=classes.map(c=>`<option value="${c.id}" ${t&&t.classId===c.id?'selected':''}>${esc(c.name)} (${c.code})</option>`).join('');
@@ -162,7 +336,7 @@ function formClass(c){
  const code=c?.code||genCode();
  $('#sh').innerHTML=`<div class="grip"></div><h2>${c?'تعديل الشعبة':'شعبة جديدة'}</h2>
  <label>اسم الشعبة<input id="nm" value="${esc(c?.name)}" placeholder="مثلاً: إدارة أعمال — شعبة أ"></label>
- <label>كود الدخول (يستخدمه الطالب)<input id="cd" value="${esc(code)}" style="font-family:monospace;letter-spacing:2px;text-transform:uppercase"></label>
+ <label>كود الدخول<input id="cd" value="${esc(code)}" style="font-family:monospace;letter-spacing:2px;text-transform:uppercase"></label>
  <p class="mu" style="margin:8px 0 0">💡 الكود لازم يكون فريد. الطالب بيدخل اسمه + الكود عشان ينضم للشعبة.</p>
  <button class="btn" id="sv">${c?'حفظ التعديلات':'إنشاء الشعبة'}</button>`;
  $('#sh').classList.add('on');$('#ov').classList.add('on');
@@ -180,7 +354,7 @@ function reviewSheet(subId,studentName,taskTitle,currentStatus,currentNote){
  <p style="margin:4px 0" class="mu">الطالب: <b>${esc(studentName)}</b></p>
  <p style="margin:0 0 10px" class="mu">المهمة: ${esc(taskTitle)}</p>
  <div class="mu">الحالة الحالية: <span class="badge-status ${stClass(currentStatus)}">${stLabel(currentStatus)}</span></div>
- <label>ملاحظة للطالب (تظهر له مع التسليم)<textarea id="tn" rows="3" placeholder="مثلاً: حل ممتاز، أو يرجى إعادة رفع الملف بصيغة PDF">${esc(currentNote)}</textarea></label>
+ <label>ملاحظة للطالب<textarea id="tn" rows="3" placeholder="مثلاً: حل ممتاز...">${esc(currentNote)}</textarea></label>
  <div style="display:flex;gap:8px;margin-top:16px">
    <button class="btn ok" id="btnOk" style="margin-top:0">قبول ✓</button>
    <button class="btn rj" id="btnRj" style="margin-top:0">رفض ✗</button>
@@ -190,24 +364,43 @@ function reviewSheet(subId,studentName,taskTitle,currentStatus,currentNote){
  const note=()=>$('#tn').value.trim();
  const doSet=async(st,label)=>{await api.updateSubmissionStatus(subId,st,note());closeSh();toast('تم '+label);render()};
  $('#btnOk').onclick=()=>doSet('accepted','القبول');
- $('#btnRj').onclick=()=>{if(!note())return toast('اكتب ملاحظة توضح سبب الرفض للطالب');doSet('rejected','الرفض')};
+ $('#btnRj').onclick=()=>{if(!note())return toast('اكتب ملاحظة توضح سبب الرفض');doSet('rejected','الرفض')};
  $('#btnRv').onclick=()=>doSet('pending','الإرجاع للمراجعة');
 }
 $('#fab').onclick=async()=>{
  const classes=await api.getClasses();
- if(!classes.length){toast('أنشئ شعبة أولاً من تبويب "الشعب"');tab='classes';render();return}
+ if(!classes.length){toast('أنشئ شعبة أولاً');tab='classes';render();return}
  formTask();
 };
+function filesHTML(files,legacyName){
+ if(files&&files.length){
+  return `<div class="file-list">${files.map(f=>{
+    const ic=fileIcon(f.type,f.name);
+    return `<div class="file-item">
+      <div class="ic" style="background:${ic.color}">${ic.label}</div>
+      <div class="nm">${esc(f.name)}</div>
+      <div class="sz">${humanSize(f.size)}</div>
+      <button class="pv" data-pv="${f.fileId}" data-nm="${esc(f.name)}" data-tp="${esc(f.type)}">معاينة</button>
+      <button class="dl" data-dl="${f.fileId}" data-nm="${esc(f.name)}">تحميل</button>
+    </div>`}).join('')}</div>`;
+ }
+ if(legacyName)return `<div class="file-empty">📎 ${esc(legacyName)} <span style="color:var(--er)">(نسخة قديمة)</span></div>`;
+ return '<div class="file-empty">بدون ملفات</div>';
+}
 
-/* ===== عرض ===== */
 async function render(){
- const tasks=(await api.getTasks()).sort((a,b)=>b.id-a.id),subs=await api.getAllSubmissions(),classes=await api.getClasses(),app=$('#app');
+ const tasks=(await api.getTasks()).sort((a,b)=>b.id-a.id),subs=await api.getAllSubmissions(),classes=await api.getClasses(),students=await api.getAllStudents(),app=$('#app');
  const clsMap={};classes.forEach(c=>clsMap[c.id]=c);
  const per=id=>{const by={};subs.filter(s=>s.taskId===id).forEach(s=>(by[s.student]=by[s.student]||[]).push(s));return by};
  const stu=new Set(subs.map(s=>s.student)).size;
 
  let totalPending=0;
  for(const t of tasks){const c=await api.getStatusCounts(t.id);totalPending+=c.pending}
+
+ // ⭐ إشعارات
+ const notifs=computeNotifs(tasks,subs);
+ updateBell(notifs);
+ $('#bell').onclick=()=>notifSheet(notifs);
 
  let h=`<div class="stats">
    <div><b>${tasks.filter(isOpen).length}</b>مهام مفتوحة</div>
@@ -220,30 +413,30 @@ async function render(){
    <button data-t="subs" class="${tab=='subs'?'a':''}">التسليمات${totalPending?`<span class="badge">${totalPending}</span>`:''}</button>
    <button data-t="classes" class="${tab=='classes'?'a':''}">الشعب (${classes.length})</button>
    <button data-t="students" class="${tab=='students'?'a':''}">الطلاب (${stu})</button>
- </div>`;
+ </div>
+ <div class="search-wrap"><input id="q" placeholder="🔎 بحث..." value="${esc(search)}"></div>`;
 
- /* ---- تبويب المهام ---- */
  if(tab=='tasks'){
    if(!classes.length){h+=`<div class="empty-cls" id="goCls">➕ ما في شعب بعد — اضغط لإنشاء أول شعبة</div>`}
    else if(!tasks.length){h+='<div class="em">ابدأ بنشر أول مهمة من زر + بالأسفل</div>'}
    else{
-     const shown=fltClass?tasks.filter(t=>t.classId===fltClass):tasks;
+     let shown=fltClass?tasks.filter(t=>t.classId===fltClass):tasks;
+     if(search)shown=shown.filter(t=>t.title.toLowerCase().includes(search.toLowerCase())||(t.desc||'').toLowerCase().includes(search.toLowerCase()));
      if(classes.length>1){
        h+=`<div class="chips"><button class="chip ${!fltClass?'a':''}" data-fc="0">الكل</button>${classes.map(c=>`<button class="chip ${fltClass==c.id?'a':''}" data-fc="${c.id}">${esc(c.name)}</button>`).join('')}</div>`;
      }
+     h+=`<div class="toolbar"><button class="export" id="exportAll">📊 تصدير كل التسليمات CSV</button></div>`;
      h+=await Promise.all(shown.map(async t=>{
-       const o=isOpen(t),n=Object.keys(per(t.id)).length,c=await api.getStatusCounts(t.id),cls=clsMap[t.classId];
-       return `<div class="rc"><span class="st ${o?'':'cl'}">${o?'مفتوحة':'مغلقة'}</span>
+       const o=isOpen(t),soon=isSoon(t),n=Object.keys(per(t.id)).length,c=await api.getStatusCounts(t.id),cls=clsMap[t.classId];
+       return `<div class="rc"><span class="st ${o?(soon?'soon':''):'cl'}">${o?(soon?'تنتهي قريباً':'مفتوحة'):'مغلقة'}</span>
        <h3>${esc(t.title)}</h3><p>${esc(t.desc)}</p>
        <div class="mu" style="margin-top:4px">📚 ${cls?esc(cls.name):'<span style="color:var(--er)">شعبة محذوفة</span>'}</div>
        <div class="cut"></div>
        <div class="ft"><span>الموعد: ${fmt(t.deadline)}</span><span><b>${n}</b> طالب سلّم${c.pending?` · <b style="color:var(--go)">${c.pending} بانتظار</b>`:''}</span></div>
-       <div class="acts"><button class="p" data-a="v" data-id="${t.id}">التسليمات</button><button data-a="e" data-id="${t.id}">تعديل</button><button data-a="x" data-id="${t.id}">${o?'إغلاق':'فتح'}</button><button class="d" data-a="r" data-id="${t.id}">حذف</button></div></div>`;
+       <div class="acts"><button class="p" data-a="v" data-id="${t.id}">التسليمات</button><button data-a="miss" data-id="${t.id}">لم يسلّم</button><button data-a="e" data-id="${t.id}">تعديل</button><button data-a="x" data-id="${t.id}">${o?'إغلاق':'فتح'}</button><button class="d" data-a="r" data-id="${t.id}">حذف</button></div></div>`;
      })).then(x=>x.join(''));
    }
  }
-
- /* ---- تبويب التسليمات ---- */
  else if(tab=='subs'){
    if(!tasks.length){h+='<div class="em">ما في مهام بعد</div>'}
    else{
@@ -252,19 +445,21 @@ async function render(){
      if(!t){h+='<div class="em">ما في مهام بهذه الشعبة</div>'}
      else{
        const by=per(t.id),ents=Object.entries(by).sort((a,b)=>b[1][0].at-a[1][0].at);
-       const filtered=ents.filter(([n,l])=>{if(fltStatus==='all')return true;const latest=[...l].sort((a,b)=>b.at-a.at)[0];return (latest.status||'pending')===fltStatus});
+       let filtered=ents.filter(([n,l])=>{if(fltStatus==='all')return true;const latest=[...l].sort((a,b)=>b.at-a.at)[0];return (latest.status||'pending')===fltStatus});
+       if(search)filtered=filtered.filter(([n])=>n.toLowerCase().includes(search.toLowerCase()));
        const counts=await api.getStatusCounts(t.id);
        if(classes.length>1){
          h+=`<div class="chips"><button class="chip ${!fltClass?'a':''}" data-fc="0">كل الشعب</button>${classes.map(c=>`<button class="chip ${fltClass==c.id?'a':''}" data-fc="${c.id}">${esc(c.name)}</button>`).join('')}</div>`;
        }
        h+=`<div class="chips">${filteredTasks.map(x=>`<button class="chip ${x.id===t.id?'a':''}" data-s="${x.id}">${esc(x.title)}</button>`).join('')}</div>
-       <div class="mu" style="margin-bottom:8px">📚 ${clsMap[t.classId]?esc(clsMap[t.classId].name):'—'} · آخر موعد: ${fmt(t.deadline)} · ${ents.length} طالب سلّم · <b>${counts.pending}</b> بانتظار المراجعة</div>
+       <div class="mu" style="margin-bottom:8px">📚 ${clsMap[t.classId]?esc(clsMap[t.classId].name):'—'} · آخر موعد: ${fmt(t.deadline)} · ${ents.length} طالب سلّم</div>
        <div class="chips" style="margin-bottom:14px">
          <button class="chip ${fltStatus=='all'?'a':''}" data-fs="all">الكل (${counts.total})</button>
          <button class="chip ${fltStatus=='pending'?'a':''}" data-fs="pending">بانتظار (${counts.pending})</button>
          <button class="chip ${fltStatus=='accepted'?'a':''}" data-fs="accepted">مقبول (${counts.accepted})</button>
          <button class="chip ${fltStatus=='rejected'?'a':''}" data-fs="rejected">مرفوض (${counts.rejected})</button>
-       </div>`;
+       </div>
+       <div class="toolbar"><button class="export" data-exp="${t.id}">📊 تصدير تقرير هذه المهمة</button></div>`;
        h+= (filtered.map(([n,l])=>{
          const sorted=[...l].sort((a,b)=>b.at-a.at);
          const latest=sorted[0],older=sorted.slice(1);
@@ -273,50 +468,42 @@ async function render(){
            <div class="h"><div class="ava" style="background:${col(n)}">${esc(n[0])}</div>
              <div><b>${esc(n)}</b>
                <span class="badge-status ${stClass(st)}">${stLabel(st)}</span>
-               ${l.length>1?`<span class="tg">عُدِّل · ${l.length} نسخ</span>`:''}
+               ${l.length>1?`<span class="tg">عُدِّل · ${l.length}</span>`:''}
                ${late?'<span class="tg r">متأخر</span>':''}
                <div class="mu">${l.length>1?'آخر تعديل':'سُلِّم'} ${fmt(latest.at)}</div></div></div>
-           <div class="fl">📎 ${esc(latest.fileName)||'بدون ملف'}${latest.note?`<div class="mu">${esc(latest.note)}</div>`:''}</div>
+           <div class="fl">${filesHTML(latest.files,latest.fileName)}${latest.note?`<div class="mu" style="margin-top:6px">📝 ${esc(latest.note)}</div>`:''}</div>
            ${latest.teacherNote?`<div class="tnote">📝 <b>ملاحظتك:</b> ${esc(latest.teacherNote)}</div>`:''}
            <div class="sacts">
              ${st!=='accepted'?`<button class="ok" data-ss="accepted" data-sid="${latest.id}" data-name="${esc(n)}">قبول ✓</button>`:''}
              ${st!=='rejected'?`<button class="rj" data-ss="rejected" data-sid="${latest.id}" data-name="${esc(n)}">رفض ✗</button>`:''}
              <button class="rv" data-ss="__sheet" data-sid="${latest.id}" data-name="${esc(n)}" data-st="${st}" data-note="${esc(latest.teacherNote||'')}">مراجعة/ملاحظة</button>
            </div>
-           ${older.length?`<details><summary>سجل النسخ السابقة (${older.length})</summary>${older.map(o=>`<div class="old">${fmt(o.at)} · ${esc(o.fileName)||'بدون ملف'} <span class="badge-status ${stClass(o.status)}">${stLabel(o.status)}</span></div>`).join('')}</details>`:''}
+           ${older.length?`<details><summary>سجل النسخ السابقة (${older.length})</summary>${older.map(o=>`<div class="old"><b>${fmt(o.at)}</b> <span class="badge-status ${stClass(o.status)}">${stLabel(o.status)}</span>${filesHTML(o.files,o.fileName)}</div>`).join('')}</details>`:''}
          </div>`;
-       }).join('')||'<div class="em">ما في تسليمات بهالحالة لهذي المهمة</div>');
+       }).join('')||'<div class="em">ما في تسليمات بهالحالة</div>');
      }
    }
  }
-
- /* ---- تبويب الشعب ---- */
  else if(tab=='classes'){
-   if(!classes.length){h+='<div class="em">ما في شعب بعد. اضغط + لإنشاء أول شعبة</div>'}
+   if(!classes.length){h+='<div class="em">ما في شعب بعد</div>'}
    else{
      h+=classes.map(c=>{
        const ts=tasks.filter(t=>t.classId===c.id).length;
        const cs=new Set(subs.filter(s=>s.classId===c.id).map(s=>s.student)).size;
-       return `<div class="cls-card">
-         <div class="info"><h3>${esc(c.name)}</h3>
-           <div class="mu">كود: <span class="code">${c.code}</span> · ${ts} مهمة · ${cs} طالب</div></div>
-         <div class="acts-inline">
-           <button data-ce="${c.id}">تعديل</button>
-           <button class="d" data-cd="${c.id}">حذف</button>
-         </div>
-       </div>`;
+       return `<div class="cls-card"><div class="info"><h3>${esc(c.name)}</h3>
+         <div class="mu">كود: <span class="code">${c.code}</span> · ${ts} مهمة · ${cs} طالب</div></div>
+         <div class="acts-inline"><button data-ce="${c.id}">تعديل</button><button class="d" data-cd="${c.id}">حذف</button></div></div>`;
      }).join('');
    }
+   h+=`<div class="toolbar"><button class="danger" id="resetAll">🗑️ حذف كل البيانات (خطير)</button></div>`;
  }
-
- /* ---- تبويب الطلاب ---- */
  else if(tab=='students'){
-   const students=await api.getAllStudents();
    if(classes.length>1){
      h+=`<div class="chips"><button class="chip ${!fltClass?'a':''}" data-fc="0">كل الشعب</button>${classes.map(c=>`<button class="chip ${fltClass==c.id?'a':''}" data-fc="${c.id}">${esc(c.name)}</button>`).join('')}</div>`;
    }
-   const list=fltClass?students.filter(s=>s.classId===fltClass):students;
-   if(!list.length){h+='<div class="em">ما في طلاب مسجلين بعد</div>'}
+   let list=fltClass?students.filter(s=>s.classId===fltClass):students;
+   if(search)list=list.filter(s=>s.name.toLowerCase().includes(search.toLowerCase()));
+   if(!list.length){h+='<div class="em">ما في طلاب</div>'}
    else{
      h+=list.map(s=>{
        const mySubs=subs.filter(x=>x.student===s.name);
@@ -325,33 +512,33 @@ async function render(){
        const pending=Object.values(byTask).filter(x=>(x.status||'pending')==='pending').length;
        const rejected=Object.values(byTask).filter(x=>x.status==='rejected').length;
        const cls=clsMap[s.classId];
-       return `<div class="stu-card">
-         <div class="ava" style="background:${col(s.name)}">${esc(s.name[0])}</div>
-         <div class="info">
-           <b>${esc(s.name)}</b>
+       return `<div class="stu-card"><div class="ava" style="background:${col(s.name)}">${esc(s.name[0])}</div>
+         <div class="info"><b>${esc(s.name)}</b>
            <div class="mu">📚 ${cls?esc(cls.name):'—'} · ${Object.keys(byTask).length} تسليم</div>
            <div class="stat-row">
-             ${accepted?`<span class="ok">✓ ${accepted} مقبول</span>`:''}
-             ${pending?`<span class="warn">⏳ ${pending} بانتظار</span>`:''}
-             ${rejected?`<span class="bad">✗ ${rejected} مرفوض</span>`:''}
+             ${accepted?`<span class="ok">✓ ${accepted}</span>`:''}
+             ${pending?`<span class="warn">⏳ ${pending}</span>`:''}
+             ${rejected?`<span class="bad">✗ ${rejected}</span>`:''}
              ${!accepted&&!pending&&!rejected?'<span>لا تسليمات</span>':''}
-           </div>
-         </div>
-       </div>`;
+           </div></div></div>`;
      }).join('');
    }
  }
 
  app.innerHTML=h;
 
- /* ---- ربط الأحداث ---- */
- app.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{tab=b.dataset.t;fltStatus='all';render()});
- app.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{sel=+b.dataset.s;fltStatus='all';render()});
+ // ⭐ بحث
+ const q=$('#q');
+ if(q){q.oninput=()=>{search=q.value.trim();render();q.focus();q.setSelectionRange(search.length,search.length)}}
+
+ app.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{tab=b.dataset.t;fltStatus='all';search='';render()});
+ app.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{sel=+b.dataset.s;fltStatus='all';search='';render()});
  app.querySelectorAll('[data-fs]').forEach(b=>b.onclick=()=>{fltStatus=b.dataset.fs;render()});
  app.querySelectorAll('[data-fc]').forEach(b=>b.onclick=()=>{fltClass=+b.dataset.fc;sel=null;render()});
  app.querySelectorAll('[data-a]').forEach(b=>b.onclick=async()=>{
    const id=+b.dataset.id,t=tasks.find(x=>x.id===id),a=b.dataset.a;
-   if(a=='v'){sel=id;tab='subs';fltStatus='all';fltClass=0;render();scrollTo(0,0)}
+   if(a=='v'){sel=id;tab='subs';fltStatus='all';fltClass=0;search='';render();scrollTo(0,0)}
+   if(a=='miss')missingSheet(t,subs,students,classes);
    if(a=='e')formTask(t);
    if(a=='r'&&confirm('حذف المهمة وكل تسليماتها؟')){await api.deleteTask(id);toast('تم الحذف');render()}
    if(a=='x'){if(isOpen(t)){t.closed=true;await api.saveTask(t);toast('تم إغلاق المهمة');render()}
@@ -359,23 +546,64 @@ async function render(){
  });
  app.querySelectorAll('[data-ss]').forEach(b=>b.onclick=async()=>{
    const sid=+b.dataset.sid,ss=b.dataset.ss,name=b.dataset.name;
-   const t=tasks.find(x=>x.id===sel);
-   if(!t)return;
+   const t=tasks.find(x=>x.id===sel);if(!t)return;
    if(ss==='__sheet'){reviewSheet(sid,name,t.title,b.dataset.st,b.dataset.note);return}
    if(ss==='rejected'){reviewSheet(sid,name,t.title,'rejected','');return}
    await api.updateSubmissionStatus(sid,ss);
    toast(ss==='accepted'?'تم قبول التسليم':'تم تحديث الحالة');render();
  });
- app.querySelectorAll('[data-ce]').forEach(b=>b.onclick=()=>{
-   const c=classes.find(x=>x.id===+b.dataset.ce);formClass(c);
- });
- app.querySelectorAll('[data-cd]').forEach(b=>b.onclick=async()=>{
-   const id=+b.dataset.cd;
-   if(!confirm('حذف الشعبة؟ المهام المرتبطة رح تفقد ارتباطها.'))return;
-   await api.deleteClass(id);toast('تم حذف الشعبة');render();
- });
+ app.querySelectorAll('[data-ce]').forEach(b=>b.onclick=()=>{const c=classes.find(x=>x.id===+b.dataset.ce);formClass(c)});
+ app.querySelectorAll('[data-cd]').forEach(b=>b.onclick=async()=>{if(!confirm('حذف الشعبة؟'))return;await api.deleteClass(+b.dataset.cd);toast('تم حذف الشعبة');render()});
+ app.querySelectorAll('[data-dl]').forEach(b=>b.onclick=()=>downloadFile(b.dataset.dl,b.dataset.nm));
+ app.querySelectorAll('[data-pv]').forEach(b=>b.onclick=()=>previewFile(b.dataset.pv,b.dataset.nm,b.dataset.tp));
+ // ⭐ تصدير
+ const expAll=document.getElementById('exportAll');
+ if(expAll)expAll.onclick=()=>{
+   const rows=[['الطالب','الشعبة','المهمة','آخر تسليم','الحالة','عدد النسخ','الملفات','ملاحظة المعلم']];
+   const byTaskStudent={};subs.forEach(s=>{const k=s.taskId+'|'+s.student;if(!byTaskStudent[k]||s.at>byTaskStudent[k].at)byTaskStudent[k]=s});
+   Object.values(byTaskStudent).forEach(s=>{
+     const t=tasks.find(x=>x.id===s.taskId);const cls=clsMap[t?.classId];
+     const cnt=subs.filter(x=>x.taskId===s.taskId&&x.student===s.student).length;
+     const files=(s.files||[]).map(f=>f.name).join(' | ')||s.fileName||'—';
+     rows.push([s.student,cls?cls.name:'—',t?t.title:'—',fmt(s.at),stLabel(s.status).replace(/[✓✗]/g,'').trim(),cnt,files,s.teacherNote||'']);
+   });
+   exportCSV('all_submissions_'+Date.now()+'.csv',rows);toast('تم التصدير');
+ };
+ app.querySelectorAll('[data-exp]').forEach(b=>b.onclick=()=>{const t=tasks.find(x=>x.id===+b.dataset.exp);if(t)exportTaskReport(t,subs,students)});
+ const resetAll=document.getElementById('resetAll');
+ if(resetAll)resetAll.onclick=async()=>{
+   if(!confirm('⚠️ سيتم حذف كل الشعب والمهام والتسليمات والملفات نهائياً!\n\nهل أنت متأكد؟'))return;
+   const txt=prompt('اكتب "حذف" للتأكيد النهائي:');
+   if(txt!=='حذف')return toast('تم الإلغاء');
+   await IDB.clearAll();
+   ['classes','tasks','subs','students'].forEach(k=>localStorage.removeItem(k));
+   try{localStorage.removeItem('notifSeen_teacher')}catch(e){}
+   toast('تم حذف كل البيانات');render();
+ };
  const gc=document.getElementById('goCls');
  if(gc)gc.onclick=()=>formClass();
 }
+
+/* ⭐ شيت "لم يسلّم" */
+function missingSheet(t,subs,students,classes){
+ const taskSubs=subs.filter(s=>s.taskId===t.id&&!s.orphaned);
+ const submitted=new Set(taskSubs.map(s=>s.student));
+ const classStudents=students.filter(s=>s.classId===t.classId);
+ const missing=classStudents.filter(s=>!submitted.has(s.name));
+ $('#sh').innerHTML=`<div class="grip"></div><h2>لم يسلّم — ${esc(t.title)}</h2>
+ <p class="mu" style="margin:4px 0 10px">${missing.length} طالب من أصل ${classStudents.length} لم يسلّم</p>
+ ${missing.length?missing.map(s=>`<div class="missing-item"><div style="display:flex;align-items:center;gap:8px"><div class="ava" style="background:${col(s.name)}">${esc(s.name[0])}</div><b>${esc(s.name)}</b></div></div>`).join(''):'<div class="em" style="padding:20px 0">🎉 كل الطلاب سلّموا!</div>'}
+ <button class="btn" id="expMiss" style="background:var(--bg);color:var(--pr);border:1px solid var(--pr)">تصدير القائمة CSV</button>`;
+ $('#sh').classList.add('on');$('#ov').classList.add('on');
+ $('#expMiss').onclick=()=>{
+   exportCSV('missing_'+t.title.replace(/\s+/g,'_')+'.csv',[['الطالب','الشعبة','المهمة'],...missing.map(s=>[s.name,classes.find(c=>c.id===t.classId)?.name||'—',t.title])]);
+   toast('تم التصدير');
+ };
+}
 render();
+// ⭐ فحص الإشعارات كل دقيقة
+setInterval(async()=>{
+ const tasks=await api.getTasks(),subs=await api.getAllSubmissions();
+ updateBell(computeNotifs(tasks,subs));
+},60000);
 </script></body></html>
