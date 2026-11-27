@@ -41,11 +41,11 @@ textarea{width:100%;font:inherit;padding:12px;border-radius:12px;border:1px soli
 .ts{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));inset-inline:0;margin:auto;width:max-content;max-width:90%;background:var(--ink);color:var(--bg);padding:10px 20px;border-radius:30px;transform:translateY(-250%);transition:transform .3s;z-index:9}.ts.on{transform:none}
 .lg{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:var(--hd)}.lg .box{background:var(--pa);border-radius:22px;padding:26px;width:100%;max-width:380px}
 .lg input{width:100%;font:inherit;padding:13px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--ink);margin-top:14px}
+.lg .err{color:var(--er);font-size:.85rem;margin-top:8px;min-height:1.2em}
 .badge-status{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 10px;border-radius:20px;border:1px solid}
 .badge-status.pending{border-color:var(--go);color:var(--go);background:color-mix(in srgb,var(--go) 12%,transparent)}
 .badge-status.accepted{border-color:var(--ok);color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent)}
 .badge-status.rejected{border-color:var(--er);color:var(--er);background:color-mix(in srgb,var(--er) 12%,transparent)}
-.badge-status.reviewed{border-color:var(--mu);color:var(--mu)}
 .tnote{margin-top:6px;padding:8px 12px;border-radius:10px;font-size:.85rem;border-inline-start:3px solid var(--pr);background:color-mix(in srgb,var(--pr) 8%,transparent)}
 .reject-box{margin-top:10px;padding:12px;border-radius:12px;background:color-mix(in srgb,var(--er) 10%,transparent);border:1px solid var(--er);font-size:.88rem}
 .reject-box b{color:var(--er)}
@@ -58,12 +58,17 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 /* ===== طبقة البيانات ===== */
 const DB={get(k){try{return JSON.parse(localStorage.getItem(k))||[]}catch(e){return[]}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const api={
+ async getClasses(){return DB.get('classes')},
  async getTasks(){return DB.get('tasks')},
  async getMySubmissions(student){return DB.get('subs').filter(s=>s.student===student).sort((a,b)=>b.at-a.at)},
- async submit({taskId,student,file,note}){
+ async registerStudent(name,classId){
+   const a=DB.get('students')||[];
+   if(!a.find(s=>s.name===name)){a.push({name,classId,at:Date.now()});DB.set('students',a)}
+   else{const i=a.findIndex(s=>s.name===name);a[i].classId=classId;DB.set('students',a)}
+ },
+ async submit({taskId,student,classId,file,note}){
   const a=DB.get('subs');
-  // كل رفع جديد = سطر جديد بحالة pending (يصفّر حالة المراجعة السابقة)
-  a.push({id:Date.now(),taskId,student,fileName:file?file.name:'',fileSize:file?file.size:0,note,at:Date.now(),status:'pending',teacherNote:''});
+  a.push({id:Date.now(),taskId,student,classId,fileName:file?file.name:'',fileSize:file?file.size:0,note,at:Date.now(),status:'pending',teacherNote:''});
   DB.set('subs',a);
  }
 };
@@ -74,21 +79,18 @@ const isOpen=t=>!t.closed&&Date.now()<t.deadline;
 const left=t=>{const m=Math.floor((t-Date.now())/6e4),d=Math.floor(m/1440),h=Math.floor(m%1440/60);return 'باقي '+(d?d+' يوم و':'')+(d||h?h+' ساعة':(m%60)+' دقيقة')};
 const stLabel=st=>({pending:'بانتظار المراجعة',accepted:'مقبول ✓',rejected:'مرفوض ✗',reviewed:'تمت المراجعة'}[st||'pending']);
 const stClass=st=>({pending:'pending',accepted:'accepted',rejected:'rejected',reviewed:'reviewed'}[st||'pending']);
-let me='',view='home',flt='all';try{me=localStorage.getItem('me')||''}catch(e){}
+let me='',myClassId=null,view='home',flt='all';
+try{me=localStorage.getItem('me')||'';myClassId=+(localStorage.getItem('myClassId')||0)||null}catch(e){}
 function toast(t){const e=$('#ts');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2200)}
 function closeSh(){$('#sh').classList.remove('on');$('#ov').classList.remove('on')}
 $('#ov').onclick=closeSh;
 
 async function openTask(id){
  const t=(await api.getTasks()).find(x=>x.id===id),h=await api.getMySubmissions(me),m=h.filter(s=>s.taskId===id).sort((a,b)=>b.at-a.at),o=isOpen(t);
- const latest=m[0];
- const wasRejected=latest&&latest.status==='rejected';
- const canSubmit=o; // يقدر يعدّل حتى لو مقبول، لكن نبرز الرفض
+ const latest=m[0],wasRejected=latest&&latest.status==='rejected';
  $('#sh').innerHTML=`<div class="grip"></div><h2>${esc(t.title)}</h2><p style="margin:4px 0">${esc(t.desc)||''}</p>
  <div class="mu">${o?left(t.deadline)+' · ':''}آخر موعد ${fmt(t.deadline)}</div>
-
  ${wasRejected?`<div class="reject-box">⚠️ <b>تسليمك مرفوض</b>${latest.teacherNote?`<div style="margin-top:4px">ملاحظة المعلم: ${esc(latest.teacherNote)}</div>`:'<div style="margin-top:4px">راجع ملاحظة المعلم وأعد التسليم.</div>'}</div>`:''}
-
  ${o?`<label class="dz" id="dz"><input type="file" id="fl"><span id="fn">📎 اضغط لاختيار ملف الحل</span></label><textarea id="nt" rows="2" placeholder="ملاحظة للمعلم (اختياري)"></textarea>
  <button class="btn" id="sb">${wasRejected?'إعادة التسليم بعد الرفض ↻':m.length?'تحديث التسليم':'تسليم الحل'}</button>${m.length?'<p class="mu" style="margin-bottom:0">التحديث بيحل مكان تسليمك الأخير عند المعلم، وكل نسخك محفوظة هون.</p>':''}`:'<div class="em" style="padding:20px 0 4px">انتهى وقت التسليم لهذي المهمة</div>'}
  <h2 style="font-size:1rem;margin-top:18px">سجل تسليماتك</h2>
@@ -103,16 +105,45 @@ async function openTask(id){
  if(!o)return;
  $('#fl').onchange=e=>{const f=e.target.files[0];$('#fn').textContent=f?'✓ '+f.name:'📎 اضغط لاختيار ملف الحل';$('#dz').classList.toggle('f',!!f)};
  $('#sb').onclick=async()=>{const f=$('#fl').files[0],n=$('#nt').value.trim();if(!f&&!n)return toast('أرفق ملف أو اكتب ملاحظة');
-  $('#sb').disabled=true;await api.submit({taskId:id,student:me,file:f,note:n});closeSh();toast(m.length?'تم تحديث التسليم':'تم التسليم');render()}
+  $('#sb').disabled=true;await api.submit({taskId:id,student:me,classId:myClassId,file:f,note:n});closeSh();toast(m.length?'تم تحديث التسليم':'تم التسليم');render()}
 }
 
 async function render(){
  const r=$('#root');
- if(!me){r.innerHTML=`<div class="lg"><div class="box"><h1 style="margin:0">أهلاً فيك 👋</h1><div class="mu">اكتب اسمك الكامل لتشوف مهامك</div><input id="nm" placeholder="الاسم الكامل"><button class="btn" id="go">دخول</button></div></div>`;
-  $('#go').onclick=()=>{const v=$('#nm').value.trim();if(!v)return;me=v;try{localStorage.setItem('me',v)}catch(e){}render()};return}
+ if(!me||!myClassId){
+   // شاشة دخول بالاسم + كود الشعبة
+   r.innerHTML=`<div class="lg"><div class="box"><h1 style="margin:0">أهلاً فيك 👋</h1>
+     <div class="mu">اكتب اسمك الكامل وكود الشعبة</div>
+     <input id="nm" placeholder="الاسم الكامل" value="${esc(me)}">
+     <input id="cc" placeholder="كود الشعبة (مثال: ABC123)" style="font-family:monospace;letter-spacing:2px;text-transform:uppercase">
+     <div class="err" id="er"></div>
+     <button class="btn" id="go">دخول</button></div></div>`;
+   const attempt=async()=>{
+     const v=$('#nm').value.trim(),code=$('#cc').value.trim().toUpperCase();
+     const er=$('#er');
+     if(!v)return er.textContent='اكتب اسمك';
+     if(!code)return er.textContent='اكتب كود الشعبة';
+     const classes=await api.getClasses();
+     const cls=classes.find(c=>c.code===code);
+     if(!cls){er.textContent='كود الشعبة غير صحيح';return}
+     me=v;myClassId=cls.id;
+     try{localStorage.setItem('me',v);localStorage.setItem('myClassId',cls.id)}catch(e){}
+     await api.registerStudent(v,cls.id);
+     render();
+   };
+   $('#go').onclick=attempt;
+   $('#cc').onkeydown=e=>{if(e.key==='Enter')attempt()};
+   return;
+ }
 
- const tasks=(await api.getTasks()).sort((a,b)=>(isOpen(b)-isOpen(a))||a.deadline-b.deadline),mine=await api.getMySubmissions(me);
- // آخر نسخة لكل مهمة
+ const classes=await api.getClasses(),cls=classes.find(c=>c.id===myClassId);
+ if(!cls){
+   // الشعبة انحذفت
+   try{localStorage.removeItem('myClassId')}catch(e){}
+   return render();
+ }
+ const tasks=(await api.getTasks()).filter(t=>t.classId===myClassId).sort((a,b)=>(isOpen(b)-isOpen(a))||a.deadline-b.deadline);
+ const mine=await api.getMySubmissions(me);
  const latestByTask={};mine.forEach(s=>{if(!latestByTask[s.taskId]||s.at>latestByTask[s.taskId].at)latestByTask[s.taskId]=s});
  const done=new Set(Object.keys(latestByTask).map(Number));
  const rejectedTasks=new Set(Object.entries(latestByTask).filter(([,s])=>s.status==='rejected').map(([k])=>+k));
@@ -121,12 +152,11 @@ async function render(){
  let body='';
  if(view==='log'){
    body=mine.length?`<div class="tl">${mine.map(s=>{
-     const t=tasks.find(x=>x.id===s.taskId);
+     const t=tasks.find(x=>x.id===s.taskId)||{title:'مهمة محذوفة'};
      const cls=s.status==='accepted'?'acc':s.status==='rejected'?'rej':'';
-     return `<div class="${cls}"><b>${esc(t?t.title:'مهمة محذوفة')}</b> <span class="badge-status ${stClass(s.status)}">${stLabel(s.status)}</span>
+     return `<div class="${cls}"><b>${esc(t.title)}</b> <span class="badge-status ${stClass(s.status)}">${stLabel(s.status)}</span>
      <div class="mu">${fmt(s.at)}</div>📎 ${esc(s.fileName)||'بدون ملف'}
-     ${s.teacherNote?`<div class="tnote">📝 ${esc(s.teacherNote)}</div>`:''}
-     </div>`;
+     ${s.teacherNote?`<div class="tnote">📝 ${esc(s.teacherNote)}</div>`:''}</div>`;
    }).join('')}</div>`:'<div class="em">لسا ما سلّمت أي مهمة</div>';
  }
  else{
@@ -147,7 +177,7 @@ async function render(){
   }).join('')||'<div class="em">ما في مهام هون حالياً 🎉</div>')
  }
 
- r.innerHTML=`<div class="top"><div><small>أهلاً</small><h1>${esc(me)}</h1></div><button class="av" id="out" title="تبديل الحساب">${esc(me[0])}</button></div>
+ r.innerHTML=`<div class="top"><div><small>📚 ${esc(cls.name)} · أهلاً</small><h1>${esc(me)}</h1></div><button class="av" id="out" title="تبديل الحساب">${esc(me[0])}</button></div>
  <main>
    <div class="hero"><span class="n">${cnt}</span> من ${tasks.length} مهام مسلَّمة${rejectedTasks.size?` · <b style="color:var(--er)">${rejectedTasks.size} مرفوض يحتاج إعادة</b>`:''}<div class="bar"><i style="width:${pc}%"></i></div></div>
    <div class="seg"><button data-v="home" class="${view=='home'?'a':''}">المهام</button><button data-v="log" class="${view=='log'?'a':''}">سجل تسليماتي</button></div>
@@ -156,7 +186,7 @@ async function render(){
  r.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{view=b.dataset.v;render()});
  r.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{flt=b.dataset.f;render()});
  r.querySelectorAll('.rc').forEach(b=>b.onclick=()=>openTask(+b.dataset.id));
- $('#out').onclick=()=>{if(confirm('تبديل الحساب؟')){me='';try{localStorage.removeItem('me')}catch(e){}render()}};
+ $('#out').onclick=()=>{if(confirm('تبديل الحساب؟')){me='';myClassId=null;try{localStorage.removeItem('me');localStorage.removeItem('myClassId')}catch(e){}render()}};
 }
-render();setInterval(()=>{if(!$('#sh').classList.contains('on')&&me)render()},60000);
+render();setInterval(()=>{if(!$('#sh').classList.contains('on')&&me&&myClassId)render()},60000);
 </script></body></html>
