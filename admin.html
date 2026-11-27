@@ -17,8 +17,8 @@ main{max-width:720px;margin:-52px auto 0;padding:0 14px 110px}
 .stats div{flex:1;padding:14px 8px;text-align:center;color:var(--mu);font-size:.8rem}.stats div+div{border-inline-start:1px solid var(--bd)}
 .stats b{display:block;font-size:1.7rem;color:var(--pr);line-height:1.2}
 .stats b.warn{color:var(--go)}
-.seg{display:flex;background:var(--pa);border-radius:12px;padding:4px;margin-bottom:14px}
-.seg button{flex:1;border:0;background:none;color:var(--mu);padding:9px;border-radius:9px;font-weight:600;cursor:pointer;position:relative}
+.seg{display:flex;background:var(--pa);border-radius:12px;padding:4px;margin-bottom:14px;overflow-x:auto}
+.seg button{flex:1;min-width:80px;border:0;background:none;color:var(--mu);padding:9px;border-radius:9px;font-weight:600;cursor:pointer;position:relative;white-space:nowrap}
 .seg .a{background:var(--pr);color:var(--on)}
 .seg .badge{position:absolute;top:2px;inset-inline-end:4px;background:var(--er);color:#fff;font-size:.65rem;font-weight:700;padding:0 6px;border-radius:10px;line-height:1.4;min-width:16px}
 .rc{position:relative;background:var(--pa);border-radius:14px;padding:14px;margin-bottom:14px;box-shadow:0 1px 0 var(--bd)}
@@ -26,9 +26,9 @@ main{max-width:720px;margin:-52px auto 0;padding:0 14px 110px}
 .cut{border-top:2px dashed var(--bd);margin:12px -14px;position:relative}
 .cut::before,.cut::after{content:"";position:absolute;top:-10px;width:18px;height:18px;border-radius:50%;background:var(--bg)}
 .cut::before{inset-inline-start:-9px}.cut::after{inset-inline-end:-9px}
-.ft{display:flex;justify-content:space-between;font-size:.84rem;color:var(--mu)}
+.ft{display:flex;justify-content:space-between;font-size:.84rem;color:var(--mu);flex-wrap:wrap;gap:4px}
 .st{position:absolute;inset-inline-end:14px;top:12px;transform:rotate(-7deg);border:2px solid var(--pr);color:var(--pr);padding:1px 9px;border-radius:7px;font-weight:700;font-size:.78rem}.st.cl{border-color:var(--er);color:var(--er)}
-.acts{display:flex;gap:8px;margin-top:12px}.acts button{flex:1;padding:8px 4px;border-radius:10px;border:1px solid var(--bd);background:none;color:var(--ink);cursor:pointer;font-size:.85rem}
+.acts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.acts button{flex:1;min-width:70px;padding:8px 4px;border-radius:10px;border:1px solid var(--bd);background:none;color:var(--ink);cursor:pointer;font-size:.85rem}
 .acts .p{background:var(--pr);color:var(--on);border-color:var(--pr)}.acts .d{color:var(--er);flex:.6}
 .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;margin-bottom:4px}.chip{flex:none;border:1px solid var(--bd);background:var(--pa);color:var(--mu);padding:6px 14px;border-radius:20px;cursor:pointer;white-space:nowrap}.chip.a{border-color:var(--pr);color:var(--pr);font-weight:700}
 .sr{background:var(--pa);border-radius:14px;padding:12px 14px;margin-bottom:10px;box-shadow:0 1px 0 var(--bd)}.sr .h{display:flex;gap:12px;align-items:center}
@@ -53,12 +53,20 @@ details{margin-top:8px}summary{cursor:pointer;color:var(--pr);font-size:.85rem;f
 .sh{position:fixed;inset-inline:0;bottom:0;max-width:560px;margin:auto;background:var(--pa);border-radius:22px 22px 0 0;padding:10px 18px calc(22px + env(safe-area-inset-bottom,0px));transform:translateY(105%);transition:transform .32s cubic-bezier(.2,.8,.2,1);max-height:92vh;overflow:auto;z-index:6}.sh.on{transform:none}
 .grip{width:40px;height:4px;background:var(--bd);border-radius:4px;margin:0 auto 14px}.sh h2{margin:0 0 6px;font-size:1.2rem}
 .sh label{display:block;margin-top:12px;font-size:.85rem;color:var(--mu)}
-.sh input,.sh textarea{width:100%;padding:12px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--ink);margin-top:4px;resize:none}
+.sh input,.sh textarea,.sh select{width:100%;padding:12px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--ink);margin-top:4px;resize:none}
 .btn{width:100%;border:0;border-radius:14px;padding:14px;background:var(--pr);color:var(--on);font-weight:700;margin-top:16px;cursor:pointer}
 .btn.ok{background:var(--ok)}.btn.rj{background:var(--er)}
 .em{text-align:center;color:var(--mu);padding:40px 10px}
 .ts{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));inset-inline:0;margin:auto;width:max-content;max-width:90%;background:var(--ink);color:var(--bg);padding:10px 20px;border-radius:30px;transform:translateY(-250%);transition:transform .3s;z-index:9}.ts.on{transform:none}
-button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--go);outline-offset:2px}
+.cls-card{background:var(--pa);border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 0 var(--bd);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.cls-card .info{flex:1;min-width:0}.cls-card h3{margin:0;font-size:1rem}.cls-card .code{font-family:monospace;background:var(--bg);padding:2px 8px;border-radius:6px;font-weight:700;color:var(--pr);letter-spacing:1px}
+.cls-card .acts-inline{display:flex;gap:6px}.cls-card .acts-inline button{border:1px solid var(--bd);background:none;padding:6px 10px;border-radius:8px;cursor:pointer;font-size:.82rem;color:var(--ink)}.cls-card .acts-inline .d{color:var(--er);border-color:var(--er)}
+.stu-card{background:var(--pa);border-radius:12px;padding:12px 14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 0 var(--bd)}
+.stu-card .info{flex:1;min-width:0}.stu-card .stat-row{display:flex;gap:10px;font-size:.78rem;margin-top:4px;flex-wrap:wrap}
+.stu-card .stat-row span{padding:1px 8px;border-radius:10px;background:var(--bg)}
+.stu-card .stat-row .ok{color:var(--ok)}.stu-card .stat-row .warn{color:var(--go)}.stu-card .stat-row .bad{color:var(--er)}
+.empty-cls{padding:16px;text-align:center;background:var(--pa);border-radius:14px;border:2px dashed var(--bd);color:var(--mu);margin-bottom:14px;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--go);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style></head><body>
 <div class="top"><small>لوحة التحكم</small><h1>إدارة الأعمال · المهام والتسليمات</h1></div>
@@ -68,35 +76,54 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 <script>
 /* ===== طبقة البيانات ===== */
 const DB={get(k){try{return JSON.parse(localStorage.getItem(k))||[]}catch(e){return[]}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const genCode=()=>{const c='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<6;i++)s+=c[Math.floor(Math.random()*c.length)];return s};
 const api={
+ // الشعب
+ async getClasses(){return DB.get('classes').sort((a,b)=>b.id-a.id)},
+ async saveClass(c){const a=DB.get('classes'),i=a.findIndex(x=>x.id===c.id);i>=0?a[i]=c:a.push(c);DB.set('classes',a)},
+ async deleteClass(id){
+   DB.set('classes',DB.get('classes').filter(c=>c.id!==id));
+   // فصل المهام عن الشعبة المحذوفة (تبقى بس orphaned-class)
+   const t=DB.get('tasks').map(x=>x.classId===id?{...x,classId:null}:x);DB.set('tasks',t);
+ },
+ async classCodeExists(code,exceptId){return DB.get('classes').some(c=>c.code===code&&c.id!==exceptId)},
+
+ // المهام
  async getTasks(){return DB.get('tasks')},
  async saveTask(t){const a=DB.get('tasks'),i=a.findIndex(x=>x.id===t.id);i>=0?a[i]=t:a.push(t);DB.set('tasks',a)},
  async deleteTask(id){
   DB.set('tasks',DB.get('tasks').filter(t=>t.id!==id));
-  // soft delete التسليمات المرتبطة (نحتفظ بها بس نشيلها من العرض)
-  const s=DB.get('subs').map(x=>x.taskId===id?{...x,orphaned:true}:x);
-  DB.set('subs',s);
+  const s=DB.get('subs').map(x=>x.taskId===id?{...x,orphaned:true}:x);DB.set('subs',s);
  },
+
+ // التسليمات
  async getAllSubmissions(){return DB.get('subs').filter(s=>!s.orphaned).sort((a,b)=>b.at-a.at)},
- // ⭐ جديد: تحديث حالة تسليم
  async updateSubmissionStatus(id,status,teacherNote){
   const a=DB.get('subs'),i=a.findIndex(x=>x.id===id);
   if(i<0)return false;
   a[i]={...a[i],status,teacherNote:teacherNote??a[i].teacherNote??'',reviewedAt:Date.now()};
   DB.set('subs',a);return true;
  },
- // ⭐ جديد: إحصائيات لكل مهمة (عدد غير المراجَع)
  async getStatusCounts(taskId){
   const subs=DB.get('subs').filter(s=>s.taskId===taskId&&!s.orphaned);
   const by={};subs.forEach(s=>(by[s.student]=by[s.student]||[]).push(s));
-  // نأخذ آخر نسخة فقط لكل طالب
   let pending=0,accepted=0,rejected=0,reviewed=0;
   Object.values(by).forEach(list=>{
-   list.sort((a,b)=>b.at-a.at);const latest=list[0];const st=latest.status||'pending';
+   list.sort((a,b)=>b.at-a.at);const st=list[0].status||'pending';
    if(st==='pending')pending++;else if(st==='accepted')accepted++;
    else if(st==='rejected')rejected++;else if(st==='reviewed')reviewed++;
   });
   return {pending,accepted,rejected,reviewed,total:Object.keys(by).length};
+ },
+
+ // ⭐ الطلاب (من التسليمات + من سجّلوا دخول)
+ async getAllStudents(){
+  const subs=DB.get('subs').filter(s=>!s.orphaned);
+  const students=DB.get('students')||[];
+  const map={};
+  students.forEach(s=>{map[s.name]=map[s.name]||{name:s.name,classId:s.classId,firstSeen:s.at}});
+  subs.forEach(s=>{map[s.student]=map[s.student]||{name:s.student,classId:s.classId,firstSeen:s.at}});
+  return Object.values(map);
  }
 };
 /* ===== الواجهة ===== */
@@ -107,24 +134,47 @@ const loc=ms=>new Date(ms-new Date().getTimezoneOffset()*6e4).toISOString().slic
 const col=n=>'hsl('+([...n].reduce((a,c)=>a+c.charCodeAt(0),0)*37%360)+' 42% 36%)';
 const stLabel=st=>({pending:'بانتظار المراجعة',accepted:'مقبول ✓',rejected:'مرفوض ✗',reviewed:'تمت المراجعة'}[st||'pending']);
 const stClass=st=>({pending:'pending',accepted:'accepted',rejected:'rejected',reviewed:'reviewed'}[st||'pending']);
-let tab='tasks',sel=null,fltStatus='all';
+let tab='tasks',sel=null,fltStatus='all',fltClass=0,clsSel=0;
 function toast(t){const e=$('#ts');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2200)}
 function closeSh(){$('#sh').classList.remove('on');$('#ov').classList.remove('on')}
 $('#ov').onclick=closeSh;
 
-function form(t){
+/* ===== نماذج ===== */
+function formTask(t){
+ const classes=DB.get('classes');
+ const classOpts=classes.map(c=>`<option value="${c.id}" ${t&&t.classId===c.id?'selected':''}>${esc(c.name)} (${c.code})</option>`).join('');
  $('#sh').innerHTML=`<div class="grip"></div><h2>${t?'تعديل المهمة':'مهمة جديدة'}</h2>
- <label>عنوان المهمة<input id="ti" value="${esc(t?.title)}"></label><label>الوصف والتعليمات<textarea id="de" rows="4">${esc(t?.desc)}</textarea></label>
+ <label>الشعبة<select id="cs"><option value="">— اختر الشعبة —</option>${classOpts}</select></label>
+ <label>عنوان المهمة<input id="ti" value="${esc(t?.title)}"></label>
+ <label>الوصف والتعليمات<textarea id="de" rows="4">${esc(t?.desc)}</textarea></label>
  <label>آخر موعد للتسليم<input id="dl" type="datetime-local" value="${t?loc(t.deadline):''}"></label>
  <button class="btn" id="sv">${t?'حفظ التعديلات':'نشر المهمة للطلاب'}</button>`;
  $('#sh').classList.add('on');$('#ov').classList.add('on');
- $('#sv').onclick=async()=>{const ti=$('#ti').value.trim(),dl=$('#dl').value;if(!ti||!dl)return toast('العنوان والموعد مطلوبين');
-  await api.saveTask({...(t||{id:Date.now(),closed:false}),title:ti,desc:$('#de').value.trim(),deadline:new Date(dl).getTime()});
-  closeSh();toast(t?'تم حفظ التعديلات':'تم نشر المهمة');render()}
+ $('#sv').onclick=async()=>{
+   const cs=$('#cs').value,ti=$('#ti').value.trim(),dl=$('#dl').value;
+   if(!cs)return toast('اختر الشعبة أولاً');
+   if(!ti||!dl)return toast('العنوان والموعد مطلوبين');
+   await api.saveTask({...(t||{id:Date.now(),closed:false}),classId:+cs,title:ti,desc:$('#de').value.trim(),deadline:new Date(dl).getTime()});
+   closeSh();toast(t?'تم حفظ التعديلات':'تم نشر المهمة');render();
+ };
 }
-$('#fab').onclick=()=>form();
-
-// ⭐ شيت جديد: مراجعة/تغيير حالة تسليم
+function formClass(c){
+ const code=c?.code||genCode();
+ $('#sh').innerHTML=`<div class="grip"></div><h2>${c?'تعديل الشعبة':'شعبة جديدة'}</h2>
+ <label>اسم الشعبة<input id="nm" value="${esc(c?.name)}" placeholder="مثلاً: إدارة أعمال — شعبة أ"></label>
+ <label>كود الدخول (يستخدمه الطالب)<input id="cd" value="${esc(code)}" style="font-family:monospace;letter-spacing:2px;text-transform:uppercase"></label>
+ <p class="mu" style="margin:8px 0 0">💡 الكود لازم يكون فريد. الطالب بيدخل اسمه + الكود عشان ينضم للشعبة.</p>
+ <button class="btn" id="sv">${c?'حفظ التعديلات':'إنشاء الشعبة'}</button>`;
+ $('#sh').classList.add('on');$('#ov').classList.add('on');
+ $('#sv').onclick=async()=>{
+   const nm=$('#nm').value.trim(),cd=$('#cd').value.trim().toUpperCase();
+   if(!nm||!cd)return toast('الاسم والكود مطلوبين');
+   if(cd.length<4)return toast('الكود لازم 4 أحرف على الأقل');
+   if(await api.classCodeExists(cd,c?.id))return toast('هذا الكود مستخدم بالفعل');
+   await api.saveClass({...(c||{id:Date.now(),createdAt:Date.now()}),name:nm,code:cd});
+   closeSh();toast(c?'تم الحفظ':'تم إنشاء الشعبة');render();
+ };
+}
 function reviewSheet(subId,studentName,taskTitle,currentStatus,currentNote){
  $('#sh').innerHTML=`<div class="grip"></div><h2>مراجعة التسليم</h2>
  <p style="margin:4px 0" class="mu">الطالب: <b>${esc(studentName)}</b></p>
@@ -143,13 +193,19 @@ function reviewSheet(subId,studentName,taskTitle,currentStatus,currentNote){
  $('#btnRj').onclick=()=>{if(!note())return toast('اكتب ملاحظة توضح سبب الرفض للطالب');doSet('rejected','الرفض')};
  $('#btnRv').onclick=()=>doSet('pending','الإرجاع للمراجعة');
 }
+$('#fab').onclick=async()=>{
+ const classes=await api.getClasses();
+ if(!classes.length){toast('أنشئ شعبة أولاً من تبويب "الشعب"');tab='classes';render();return}
+ formTask();
+};
 
+/* ===== عرض ===== */
 async function render(){
- const tasks=(await api.getTasks()).sort((a,b)=>b.id-a.id),subs=await api.getAllSubmissions(),app=$('#app');
+ const tasks=(await api.getTasks()).sort((a,b)=>b.id-a.id),subs=await api.getAllSubmissions(),classes=await api.getClasses(),app=$('#app');
+ const clsMap={};classes.forEach(c=>clsMap[c.id]=c);
  const per=id=>{const by={};subs.filter(s=>s.taskId===id).forEach(s=>(by[s.student]=by[s.student]||[]).push(s));return by};
  const stu=new Set(subs.map(s=>s.student)).size;
 
- // ⭐ عدّاد كلي لغير المراجَع
  let totalPending=0;
  for(const t of tasks){const c=await api.getStatusCounts(t.id);totalPending+=c.pending}
 
@@ -157,91 +213,169 @@ async function render(){
    <div><b>${tasks.filter(isOpen).length}</b>مهام مفتوحة</div>
    <div><b>${subs.length}</b>نسخ مستلمة</div>
    <div><b class="${totalPending?'warn':''}">${totalPending}</b>بانتظار المراجعة</div>
-   <div><b>${stu}</b>طلاب</div>
+   <div><b>${classes.length}</b>شعب</div>
  </div>
  <div class="seg">
    <button data-t="tasks" class="${tab=='tasks'?'a':''}">المهام</button>
    <button data-t="subs" class="${tab=='subs'?'a':''}">التسليمات${totalPending?`<span class="badge">${totalPending}</span>`:''}</button>
+   <button data-t="classes" class="${tab=='classes'?'a':''}">الشعب (${classes.length})</button>
+   <button data-t="students" class="${tab=='students'?'a':''}">الطلاب (${stu})</button>
  </div>`;
 
- if(!tasks.length)h+='<div class="em">ابدأ بنشر أول مهمة من زر + بالأسفل</div>';
- else if(tab=='tasks'){
-   h+=await Promise.all(tasks.map(async t=>{
-     const o=isOpen(t),n=Object.keys(per(t.id)).length,c=await api.getStatusCounts(t.id);
-     return `<div class="rc"><span class="st ${o?'':'cl'}">${o?'مفتوحة':'مغلقة'}</span><h3>${esc(t.title)}</h3><p>${esc(t.desc)}</p>
-     <div class="cut"></div><div class="ft"><span>الموعد: ${fmt(t.deadline)}</span><span><b>${n}</b> طالب سلّم${c.pending?` · <b style="color:var(--go)">${c.pending} بانتظار</b>`:''}</span></div>
-     <div class="acts"><button class="p" data-a="v" data-id="${t.id}">التسليمات</button><button data-a="e" data-id="${t.id}">تعديل</button><button data-a="x" data-id="${t.id}">${o?'إغلاق':'فتح'}</button><button class="d" data-a="r" data-id="${t.id}">حذف</button></div></div>`;
-   })).then(x=>x.join(''));
+ /* ---- تبويب المهام ---- */
+ if(tab=='tasks'){
+   if(!classes.length){h+=`<div class="empty-cls" id="goCls">➕ ما في شعب بعد — اضغط لإنشاء أول شعبة</div>`}
+   else if(!tasks.length){h+='<div class="em">ابدأ بنشر أول مهمة من زر + بالأسفل</div>'}
+   else{
+     const shown=fltClass?tasks.filter(t=>t.classId===fltClass):tasks;
+     if(classes.length>1){
+       h+=`<div class="chips"><button class="chip ${!fltClass?'a':''}" data-fc="0">الكل</button>${classes.map(c=>`<button class="chip ${fltClass==c.id?'a':''}" data-fc="${c.id}">${esc(c.name)}</button>`).join('')}</div>`;
+     }
+     h+=await Promise.all(shown.map(async t=>{
+       const o=isOpen(t),n=Object.keys(per(t.id)).length,c=await api.getStatusCounts(t.id),cls=clsMap[t.classId];
+       return `<div class="rc"><span class="st ${o?'':'cl'}">${o?'مفتوحة':'مغلقة'}</span>
+       <h3>${esc(t.title)}</h3><p>${esc(t.desc)}</p>
+       <div class="mu" style="margin-top:4px">📚 ${cls?esc(cls.name):'<span style="color:var(--er)">شعبة محذوفة</span>'}</div>
+       <div class="cut"></div>
+       <div class="ft"><span>الموعد: ${fmt(t.deadline)}</span><span><b>${n}</b> طالب سلّم${c.pending?` · <b style="color:var(--go)">${c.pending} بانتظار</b>`:''}</span></div>
+       <div class="acts"><button class="p" data-a="v" data-id="${t.id}">التسليمات</button><button data-a="e" data-id="${t.id}">تعديل</button><button data-a="x" data-id="${t.id}">${o?'إغلاق':'فتح'}</button><button class="d" data-a="r" data-id="${t.id}">حذف</button></div></div>`;
+     })).then(x=>x.join(''));
+   }
  }
- else{
-  const t=tasks.find(x=>x.id===sel)||tasks[0],by=per(t.id),ents=Object.entries(by).sort((a,b)=>b[1][0].at-a[1][0].at);
-  // فلترة حسب الحالة (نعتمد على آخر نسخة)
-  const filtered=ents.filter(([n,l])=>{if(fltStatus==='all')return true;const latest=[...l].sort((a,b)=>b.at-a.at)[0];return (latest.status||'pending')===fltStatus});
-  const counts=await api.getStatusCounts(t.id);
 
-  h+=`<div class="chips">${tasks.map(x=>`<button class="chip ${x.id===t.id?'a':''}" data-s="${x.id}">${esc(x.title)}</button>`).join('')}</div>
-  <div class="mu" style="margin-bottom:8px">آخر موعد: ${fmt(t.deadline)} · ${ents.length} طالب سلّم · <b>${counts.pending}</b> بانتظار المراجعة</div>
+ /* ---- تبويب التسليمات ---- */
+ else if(tab=='subs'){
+   if(!tasks.length){h+='<div class="em">ما في مهام بعد</div>'}
+   else{
+     const filteredTasks=fltClass?tasks.filter(t=>t.classId===fltClass):tasks;
+     const t=filteredTasks.find(x=>x.id===sel)||filteredTasks[0];
+     if(!t){h+='<div class="em">ما في مهام بهذه الشعبة</div>'}
+     else{
+       const by=per(t.id),ents=Object.entries(by).sort((a,b)=>b[1][0].at-a[1][0].at);
+       const filtered=ents.filter(([n,l])=>{if(fltStatus==='all')return true;const latest=[...l].sort((a,b)=>b.at-a.at)[0];return (latest.status||'pending')===fltStatus});
+       const counts=await api.getStatusCounts(t.id);
+       if(classes.length>1){
+         h+=`<div class="chips"><button class="chip ${!fltClass?'a':''}" data-fc="0">كل الشعب</button>${classes.map(c=>`<button class="chip ${fltClass==c.id?'a':''}" data-fc="${c.id}">${esc(c.name)}</button>`).join('')}</div>`;
+       }
+       h+=`<div class="chips">${filteredTasks.map(x=>`<button class="chip ${x.id===t.id?'a':''}" data-s="${x.id}">${esc(x.title)}</button>`).join('')}</div>
+       <div class="mu" style="margin-bottom:8px">📚 ${clsMap[t.classId]?esc(clsMap[t.classId].name):'—'} · آخر موعد: ${fmt(t.deadline)} · ${ents.length} طالب سلّم · <b>${counts.pending}</b> بانتظار المراجعة</div>
+       <div class="chips" style="margin-bottom:14px">
+         <button class="chip ${fltStatus=='all'?'a':''}" data-fs="all">الكل (${counts.total})</button>
+         <button class="chip ${fltStatus=='pending'?'a':''}" data-fs="pending">بانتظار (${counts.pending})</button>
+         <button class="chip ${fltStatus=='accepted'?'a':''}" data-fs="accepted">مقبول (${counts.accepted})</button>
+         <button class="chip ${fltStatus=='rejected'?'a':''}" data-fs="rejected">مرفوض (${counts.rejected})</button>
+       </div>`;
+       h+= (filtered.map(([n,l])=>{
+         const sorted=[...l].sort((a,b)=>b.at-a.at);
+         const latest=sorted[0],older=sorted.slice(1);
+         const late=latest.at>t.deadline,st=latest.status||'pending';
+         return `<div class="sr">
+           <div class="h"><div class="ava" style="background:${col(n)}">${esc(n[0])}</div>
+             <div><b>${esc(n)}</b>
+               <span class="badge-status ${stClass(st)}">${stLabel(st)}</span>
+               ${l.length>1?`<span class="tg">عُدِّل · ${l.length} نسخ</span>`:''}
+               ${late?'<span class="tg r">متأخر</span>':''}
+               <div class="mu">${l.length>1?'آخر تعديل':'سُلِّم'} ${fmt(latest.at)}</div></div></div>
+           <div class="fl">📎 ${esc(latest.fileName)||'بدون ملف'}${latest.note?`<div class="mu">${esc(latest.note)}</div>`:''}</div>
+           ${latest.teacherNote?`<div class="tnote">📝 <b>ملاحظتك:</b> ${esc(latest.teacherNote)}</div>`:''}
+           <div class="sacts">
+             ${st!=='accepted'?`<button class="ok" data-ss="accepted" data-sid="${latest.id}" data-name="${esc(n)}">قبول ✓</button>`:''}
+             ${st!=='rejected'?`<button class="rj" data-ss="rejected" data-sid="${latest.id}" data-name="${esc(n)}">رفض ✗</button>`:''}
+             <button class="rv" data-ss="__sheet" data-sid="${latest.id}" data-name="${esc(n)}" data-st="${st}" data-note="${esc(latest.teacherNote||'')}">مراجعة/ملاحظة</button>
+           </div>
+           ${older.length?`<details><summary>سجل النسخ السابقة (${older.length})</summary>${older.map(o=>`<div class="old">${fmt(o.at)} · ${esc(o.fileName)||'بدون ملف'} <span class="badge-status ${stClass(o.status)}">${stLabel(o.status)}</span></div>`).join('')}</details>`:''}
+         </div>`;
+       }).join('')||'<div class="em">ما في تسليمات بهالحالة لهذي المهمة</div>');
+     }
+   }
+ }
 
-  <div class="chips" style="margin-bottom:14px">
-    <button class="chip ${fltStatus=='all'?'a':''}" data-fs="all">الكل (${counts.total})</button>
-    <button class="chip ${fltStatus=='pending'?'a':''}" data-fs="pending">بانتظار (${counts.pending})</button>
-    <button class="chip ${fltStatus=='accepted'?'a':''}" data-fs="accepted">مقبول (${counts.accepted})</button>
-    <button class="chip ${fltStatus=='rejected'?'a':''}" data-fs="rejected">مرفوض (${counts.rejected})</button>
-    <button class="chip ${fltStatus=='reviewed'?'a':''}" data-fs="reviewed">تمت المراجعة (${counts.reviewed})</button>
-  </div>`;
+ /* ---- تبويب الشعب ---- */
+ else if(tab=='classes'){
+   if(!classes.length){h+='<div class="em">ما في شعب بعد. اضغط + لإنشاء أول شعبة</div>'}
+   else{
+     h+=classes.map(c=>{
+       const ts=tasks.filter(t=>t.classId===c.id).length;
+       const cs=new Set(subs.filter(s=>s.classId===c.id).map(s=>s.student)).size;
+       return `<div class="cls-card">
+         <div class="info"><h3>${esc(c.name)}</h3>
+           <div class="mu">كود: <span class="code">${c.code}</span> · ${ts} مهمة · ${cs} طالب</div></div>
+         <div class="acts-inline">
+           <button data-ce="${c.id}">تعديل</button>
+           <button class="d" data-cd="${c.id}">حذف</button>
+         </div>
+       </div>`;
+     }).join('');
+   }
+ }
 
-  h+= (filtered.map(([n,l])=>{
-    // آخر نسخة = المعروضة
-    const sorted=[...l].sort((a,b)=>b.at-a.at);
-    const latest=sorted[0];
-    const older=sorted.slice(1);
-    const late=latest.at>t.deadline;
-    const st=latest.status||'pending';
-    return `<div class="sr">
-      <div class="h">
-        <div class="ava" style="background:${col(n)}">${esc(n[0])}</div>
-        <div>
-          <b>${esc(n)}</b>
-          <span class="badge-status ${stClass(st)}">${stLabel(st)}</span>
-          ${l.length>1?`<span class="tg">عُدِّل · ${l.length} نسخ</span>`:''}
-          ${late?'<span class="tg r">متأخر</span>':''}
-          <div class="mu">${l.length>1?'آخر تعديل':'سُلِّم'} ${fmt(latest.at)}</div>
-        </div>
-      </div>
-      <div class="fl">📎 ${esc(latest.fileName)||'بدون ملف'}${latest.note?`<div class="mu">${esc(latest.note)}</div>`:''}</div>
-      ${latest.teacherNote?`<div class="tnote">📝 <b>ملاحظتك:</b> ${esc(latest.teacherNote)}</div>`:''}
-      <div class="sacts">
-        ${st!=='accepted'?`<button class="ok" data-ss="accepted" data-sid="${latest.id}" data-name="${esc(n)}">قبول ✓</button>`:''}
-        ${st!=='rejected'?`<button class="rj" data-ss="rejected" data-sid="${latest.id}" data-name="${esc(n)}">رفض ✗</button>`:''}
-        <button class="rv" data-ss="__sheet" data-sid="${latest.id}" data-name="${esc(n)}" data-st="${st}" data-note="${esc(latest.teacherNote||'')}">مراجعة/ملاحظة</button>
-      </div>
-      ${older.length?`<details><summary>سجل النسخ السابقة (${older.length})</summary>${older.map(o=>`<div class="old">${fmt(o.at)} · ${esc(o.fileName)||'بدون ملف'} <span class="badge-status ${stClass(o.status)}">${stLabel(o.status)}</span>${o.note?`<div>${esc(o.note)}</div>`:''}</div>`).join('')}</details>`:''}
-    </div>`;
-  }).join('')||'<div class="em">ما في تسليمات بهالحالة لهذي المهمة</div>');
+ /* ---- تبويب الطلاب ---- */
+ else if(tab=='students'){
+   const students=await api.getAllStudents();
+   if(classes.length>1){
+     h+=`<div class="chips"><button class="chip ${!fltClass?'a':''}" data-fc="0">كل الشعب</button>${classes.map(c=>`<button class="chip ${fltClass==c.id?'a':''}" data-fc="${c.id}">${esc(c.name)}</button>`).join('')}</div>`;
+   }
+   const list=fltClass?students.filter(s=>s.classId===fltClass):students;
+   if(!list.length){h+='<div class="em">ما في طلاب مسجلين بعد</div>'}
+   else{
+     h+=list.map(s=>{
+       const mySubs=subs.filter(x=>x.student===s.name);
+       const byTask={};mySubs.forEach(x=>{if(!byTask[x.taskId]||x.at>byTask[x.taskId].at)byTask[x.taskId]=x});
+       const accepted=Object.values(byTask).filter(x=>x.status==='accepted').length;
+       const pending=Object.values(byTask).filter(x=>(x.status||'pending')==='pending').length;
+       const rejected=Object.values(byTask).filter(x=>x.status==='rejected').length;
+       const cls=clsMap[s.classId];
+       return `<div class="stu-card">
+         <div class="ava" style="background:${col(s.name)}">${esc(s.name[0])}</div>
+         <div class="info">
+           <b>${esc(s.name)}</b>
+           <div class="mu">📚 ${cls?esc(cls.name):'—'} · ${Object.keys(byTask).length} تسليم</div>
+           <div class="stat-row">
+             ${accepted?`<span class="ok">✓ ${accepted} مقبول</span>`:''}
+             ${pending?`<span class="warn">⏳ ${pending} بانتظار</span>`:''}
+             ${rejected?`<span class="bad">✗ ${rejected} مرفوض</span>`:''}
+             ${!accepted&&!pending&&!rejected?'<span>لا تسليمات</span>':''}
+           </div>
+         </div>
+       </div>`;
+     }).join('');
+   }
  }
 
  app.innerHTML=h;
- app.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{tab=b.dataset.t;render()});
+
+ /* ---- ربط الأحداث ---- */
+ app.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{tab=b.dataset.t;fltStatus='all';render()});
  app.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{sel=+b.dataset.s;fltStatus='all';render()});
  app.querySelectorAll('[data-fs]').forEach(b=>b.onclick=()=>{fltStatus=b.dataset.fs;render()});
- app.querySelectorAll('[data-a]').forEach(b=>b.onclick=async()=>{const id=+b.dataset.id,t=tasks.find(x=>x.id===id),a=b.dataset.a;
-  if(a=='v'){sel=id;tab='subs';fltStatus='all';render();scrollTo(0,0)}
-  if(a=='e')form(t);
-  if(a=='r'&&confirm('حذف المهمة وكل تسليماتها؟')){await api.deleteTask(id);toast('تم الحذف');render()}
-  if(a=='x'){if(isOpen(t)){t.closed=true;await api.saveTask(t);toast('تم إغلاق المهمة');render()}else{t.closed=false;await api.saveTask(t);if(Date.now()>=t.deadline){toast('حدد موعد تسليم جديد');form(t)}else{toast('تم فتح المهمة');render()}}}});
-
- // أزرار الحالة السريعة
+ app.querySelectorAll('[data-fc]').forEach(b=>b.onclick=()=>{fltClass=+b.dataset.fc;sel=null;render()});
+ app.querySelectorAll('[data-a]').forEach(b=>b.onclick=async()=>{
+   const id=+b.dataset.id,t=tasks.find(x=>x.id===id),a=b.dataset.a;
+   if(a=='v'){sel=id;tab='subs';fltStatus='all';fltClass=0;render();scrollTo(0,0)}
+   if(a=='e')formTask(t);
+   if(a=='r'&&confirm('حذف المهمة وكل تسليماتها؟')){await api.deleteTask(id);toast('تم الحذف');render()}
+   if(a=='x'){if(isOpen(t)){t.closed=true;await api.saveTask(t);toast('تم إغلاق المهمة');render()}
+     else{t.closed=false;await api.saveTask(t);if(Date.now()>=t.deadline){toast('حدد موعد تسليم جديد');formTask(t)}else{toast('تم فتح المهمة');render()}}}
+ });
  app.querySelectorAll('[data-ss]').forEach(b=>b.onclick=async()=>{
    const sid=+b.dataset.sid,ss=b.dataset.ss,name=b.dataset.name;
+   const t=tasks.find(x=>x.id===sel);
+   if(!t)return;
    if(ss==='__sheet'){reviewSheet(sid,name,t.title,b.dataset.st,b.dataset.note);return}
-   if(ss==='rejected'){
-     // نطلب ملاحظة الرفض دائماً
-     reviewSheet(sid,name,t.title,'rejected','');return;
-   }
+   if(ss==='rejected'){reviewSheet(sid,name,t.title,'rejected','');return}
    await api.updateSubmissionStatus(sid,ss);
-   toast(ss==='accepted'?'تم قبول التسليم':'تم تحديث الحالة');
-   render();
+   toast(ss==='accepted'?'تم قبول التسليم':'تم تحديث الحالة');render();
  });
+ app.querySelectorAll('[data-ce]').forEach(b=>b.onclick=()=>{
+   const c=classes.find(x=>x.id===+b.dataset.ce);formClass(c);
+ });
+ app.querySelectorAll('[data-cd]').forEach(b=>b.onclick=async()=>{
+   const id=+b.dataset.cd;
+   if(!confirm('حذف الشعبة؟ المهام المرتبطة رح تفقد ارتباطها.'))return;
+   await api.deleteClass(id);toast('تم حذف الشعبة');render();
+ });
+ const gc=document.getElementById('goCls');
+ if(gc)gc.onclick=()=>formClass();
 }
 render();
 </script></body></html>
