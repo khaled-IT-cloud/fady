@@ -2,12 +2,11 @@
 // supabase.js — تهيئة العميل + دوال مساعدة
 // ═══════════════════════════════════════════════════════════
 
-// ⚠️ استبدل القيمتين بمعلومات مشروعك من Settings → API
+// ⚠️ ضع الرابط هنا (يبدأ بـ https وينتهي بـ .co فقط، بدون أي إضافات)
 const SUPABASE_URL = 'https://roikpeuqdlirpexagjw.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_MB9oG4sohgXBHV6pg3ae9w_X5KVwIBd';
+// ⚠️ ضع المفتاح هنا (يبدأ بـ sb_publishable_)
+const SUPABASE_ANON_KEY = 'sb_publishable_MB9oG4sohgXBHX6pg3ae9w_X5KVWIBd';
 
-// تحميل مكتبة Supabase من CDN (يتطلب إنترنت)
-// نستخدم UMD build عشان يشتغل بدون bundler
 (function loadSupabase(){
   if(window.supabase)return;
   const s=document.createElement('script');
@@ -28,7 +27,6 @@ async function getSB(){
   return window.__sbClient;
 }
 
-// ─── أدوات مساعدة ───
 const MAX_SIZE = 10*1024*1024;
 const ALLOWED = ['application/pdf','image/png','image/jpeg','image/jpg','image/webp',
   'application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document',
@@ -59,11 +57,7 @@ const stLabel=st=>({pending:'بانتظار المراجعة',accepted:'مقبو
 const stClass=st=>({pending:'pending',accepted:'accepted',rejected:'rejected',reviewed:'reviewed'}[st||'pending']);
 const col=n=>'hsl('+([...n].reduce((a,c)=>a+c.charCodeAt(0),0)*37%360)+' 42% 36%)';
 
-// ═══════════════════════════════════════════════════════════
-// API — يغلف كل استعلامات Supabase
-// ═══════════════════════════════════════════════════════════
 const api = {
-  // ─── Auth ───
   async signUp({email,password,fullName,role,classCode}){
     const sb = await getSB();
     const meta = {full_name:fullName, role};
@@ -92,7 +86,7 @@ const api = {
     const user = await this.getUser();
     if(!user) return null;
     const {data,error} = await sb.from('profiles').select('*').eq('id',user.id).single();
-    if(error) throw error;
+    if(error) return null; // في حال كان الحساب جديد ولم يتم إنشاء البروفايل بعد
     return data;
   },
   async requireAuth(expectedRole){
@@ -104,8 +98,6 @@ const api = {
     }
     return profile;
   },
-
-  // ─── Classes (المعلم) ───
   async getClasses(){
     const sb = await getSB();
     const {data,error} = await sb.from('classes').select('*').order('created_at',{ascending:false});
@@ -116,7 +108,7 @@ const api = {
     const sb = await getSB();
     const user = await this.getUser();
     const row = {name:c.name, code:c.code, teacher_id:user.id};
-    if(c.id){ // تعديل
+    if(c.id){
       const {data,error} = await sb.from('classes').update({name:c.name,code:c.code}).eq('id',c.id).select().single();
       if(error) throw error;
       return data;
@@ -139,8 +131,6 @@ const api = {
     if(error) throw error;
     return data && data.length>0;
   },
-
-  // ─── Tasks ───
   async getTasks(){
     const sb = await getSB();
     const {data,error} = await sb.from('tasks').select('*').is('deleted_at',null).order('created_at',{ascending:false});
@@ -169,41 +159,27 @@ const api = {
     const {error} = await sb.from('tasks').update({deleted_at:new Date().toISOString()}).eq('id',id);
     if(error) throw error;
   },
-
-  // ─── Submissions ───
   async getSubmissionsForTeacher(){
     const sb = await getSB();
-    // نجيب كل التسليمات لمهام المعلم (RLS تفلتر تلقائياً)
-    const {data,error} = await sb.from('submissions')
-      .select('*, submission_files(*)')
-      .order('submitted_at',{ascending:false});
+    const {data,error} = await sb.from('submissions').select('*, submission_files(*)').order('submitted_at',{ascending:false});
     if(error) throw error;
     return data||[];
   },
   async getMySubmissions(){
     const sb = await getSB();
     const user = await this.getUser();
-    const {data,error} = await sb.from('submissions')
-      .select('*, submission_files(*)')
-      .eq('student_id',user.id)
-      .order('submitted_at',{ascending:false});
+    const {data,error} = await sb.from('submissions').select('*, submission_files(*)').eq('student_id',user.id).order('submitted_at',{ascending:false});
     if(error) throw error;
     return data||[];
   },
-
-  // ─── رفع تسليم جديد ───
   async submitWork({taskId,classId,files,note}){
     const sb = await getSB();
     const user = await this.getUser();
-
-    // 1. إنشاء submission
     const {data:sub,error:subErr} = await sb.from('submissions').insert({
-      task_id:taskId, student_id:user.id, class_id:classId,
-      note:note||'', status:'pending'
+      task_id:taskId, student_id:user.id, class_id:classId, note:note||'', status:'pending'
     }).select().single();
     if(subErr) throw subErr;
 
-    // 2. رفع الملفات + إنشاء صفوف
     const uploaded = [];
     try {
       for(const f of files){
@@ -212,44 +188,32 @@ const api = {
         if(upErr) throw upErr;
         uploaded.push(path);
         const {error:fileErr} = await sb.from('submission_files').insert({
-          submission_id:sub.id, file_path:path,
-          file_name:f.name, file_size:f.size, file_type:f.type||'application/octet-stream'
+          submission_id:sub.id, file_path:path, file_name:f.name, file_size:f.size, file_type:f.type||'application/octet-stream'
         });
         if(fileErr) throw fileErr;
       }
     } catch(e){
-      // rollback: احذف الـ submission والملفات المرفوعة
       for(const p of uploaded){ try{ await sb.storage.from('submissions').remove([p]) }catch{} }
       try{ await sb.from('submissions').delete().eq('id',sub.id) }catch{}
       throw e;
     }
     return sub;
   },
-
-  // ─── تحديث حالة تسليم (معلم) ───
   async updateSubmissionStatus(id,status,teacherNote){
     const sb = await getSB();
-    const {data,error} = await sb.from('submissions')
-      .update({status,teacher_note:teacherNote||null})
-      .eq('id',id).select().single();
+    const {data,error} = await sb.from('submissions').update({status,teacher_note:teacherNote||null}).eq('id',id).select().single();
     if(error) throw error;
     return data;
   },
-
-  // ─── روابط تحميل موقعة ───
   async getFileUrl(path){
     const sb = await getSB();
     const {data,error} = await sb.storage.from('submissions').createSignedUrl(path,3600);
     if(error) throw error;
     return data.signedUrl;
   },
-
-  // ─── الطلاب (من profiles) ───
   async getStudentsInMyClasses(){
     const sb = await getSB();
-    const {data,error} = await sb.from('profiles')
-      .select('id, full_name, class_id, role')
-      .eq('role','student');
+    const {data,error} = await sb.from('profiles').select('id, full_name, class_id, role').eq('role','student');
     if(error) throw error;
     return data||[];
   }
