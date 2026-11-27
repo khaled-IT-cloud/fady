@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b4a42">
+<title>مهامي</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap">
+<style>
+:root{--bg:#e9eee9;--pa:#fbfcfa;--ink:#10231f;--mu:#5c6f69;--pr:#0f5e54;--on:#fff;--hd:#0b4a42;--go:#e0a526;--er:#b3402e;--bd:#cfd9d3;color-scheme:light}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1412;--pa:#16201d;--ink:#e8f0ec;--mu:#92a69f;--pr:#4fd1b8;--on:#07201b;--hd:#14302a;--go:#f0b93b;--er:#ff8a73;--bd:#2a3a35;color-scheme:dark}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.6 "Readex Pro",system-ui,"Segoe UI",Tahoma,sans-serif}
+button{font:inherit}
+.top{background:var(--hd);color:#fff;padding:calc(18px + env(safe-area-inset-top,0px)) 18px 64px;display:flex;justify-content:space-between;align-items:center}
+.top small{opacity:.75;font-size:.8rem}.top h1{margin:0;font-size:1.3rem;font-weight:700}
+.av{width:44px;height:44px;border-radius:50%;border:2px solid var(--go);background:none;color:#fff;font-weight:700;font-size:1.05rem;cursor:pointer}
+main{max-width:560px;margin:-46px auto 0;padding:0 14px 48px}
+.hero{background:var(--pa);border-radius:18px;padding:16px 18px;box-shadow:0 10px 28px #0b4a4230;margin-bottom:14px}
+.hero .n{font-size:2rem;font-weight:700;color:var(--pr)}.bar{height:8px;background:var(--bd);border-radius:8px;overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:var(--go);border-radius:8px;transition:width .7s}
+.seg{display:flex;background:var(--pa);border-radius:12px;padding:4px;margin-bottom:14px}
+.seg button{flex:1;border:0;background:none;color:var(--mu);padding:9px;border-radius:9px;font-weight:600;cursor:pointer}.seg .a{background:var(--pr);color:var(--on)}
+.chips{display:flex;gap:8px;margin-bottom:14px}.chip{border:1px solid var(--bd);background:none;color:var(--mu);padding:5px 14px;border-radius:20px;cursor:pointer}.chip.a{border-color:var(--pr);color:var(--pr);font-weight:600}
+.rc{position:relative;background:var(--pa);border-radius:14px;padding:14px;margin-bottom:14px;cursor:pointer;box-shadow:0 1px 0 var(--bd)}
+.rc h3{margin:0;font-size:1.02rem;padding-inline-end:90px}.rc p{margin:2px 0 0;color:var(--mu);font-size:.88rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cut{border-top:2px dashed var(--bd);margin:12px -14px;position:relative}
+.cut::before,.cut::after{content:"";position:absolute;top:-10px;width:18px;height:18px;border-radius:50%;background:var(--bg)}
+.cut::before{inset-inline-start:-9px}.cut::after{inset-inline-end:-9px}
+.ft{display:flex;justify-content:space-between;font-size:.84rem;color:var(--mu)}.ft .u{color:var(--er);font-weight:600}.x{opacity:.6}
+.st{position:absolute;inset-inline-end:14px;top:12px;transform:rotate(-7deg);border:2px solid var(--pr);color:var(--pr);padding:1px 9px;border-radius:7px;font-weight:700;font-size:.78rem}
+.st.cl{border-color:var(--er);color:var(--er)}
+.ov{position:fixed;inset:0;background:#0009;opacity:0;pointer-events:none;transition:opacity .25s;z-index:5}.ov.on{opacity:1;pointer-events:auto}
+.sh{position:fixed;inset-inline:0;bottom:0;max-width:560px;margin:auto;background:var(--pa);border-radius:22px 22px 0 0;padding:10px 18px calc(22px + env(safe-area-inset-bottom,0px));transform:translateY(105%);transition:transform .32s cubic-bezier(.2,.8,.2,1);max-height:90vh;overflow:auto;z-index:6}.sh.on{transform:none}
+.grip{width:40px;height:4px;background:var(--bd);border-radius:4px;margin:0 auto 14px}.sh h2{margin:0 0 4px;font-size:1.2rem}
+.dz{display:block;border:2px dashed var(--bd);border-radius:14px;padding:22px;text-align:center;color:var(--mu);cursor:pointer;margin-top:12px}.dz.f{border-color:var(--pr);color:var(--pr);font-weight:600}.dz input{display:none}
+textarea{width:100%;font:inherit;padding:12px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--ink);margin-top:10px;resize:none}
+.btn{width:100%;border:0;border-radius:14px;padding:14px;background:var(--pr);color:var(--on);font-weight:700;margin-top:12px;cursor:pointer}.btn:disabled{opacity:.5}
+.tl{border-inline-start:2px solid var(--bd);padding-inline-start:16px;margin:10px 6px 0}.tl>div{position:relative;padding-bottom:14px}
+.tl>div::before{content:"";position:absolute;inset-inline-start:-23px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--bd)}.tl>div.l::before{background:var(--go)}
+.mu{color:var(--mu);font-size:.85rem}.em{text-align:center;color:var(--mu);padding:40px 10px}
+.ts{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));inset-inline:0;margin:auto;width:max-content;max-width:90%;background:var(--ink);color:var(--bg);padding:10px 20px;border-radius:30px;transform:translateY(-250%);transition:transform .3s;z-index:9}.ts.on{transform:none}
+.lg{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:var(--hd)}.lg .box{background:var(--pa);border-radius:22px;padding:26px;width:100%;max-width:380px}
+.lg input{width:100%;font:inherit;padding:13px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--ink);margin-top:14px}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--go);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<div id="root"></div>
+<div class="ov" id="ov"></div><section class="sh" id="sh"></section><div class="ts" id="ts"></div>
+<script>
+/* ===== طبقة البيانات: استبدل محتوى هذي الدوال بطلبات الـ API / قاعدة البيانات ===== */
+const DB={get(k){try{return JSON.parse(localStorage.getItem(k))||[]}catch(e){return[]}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const api={
+ async getTasks(){return DB.get('tasks')},
+ async getMySubmissions(student){return DB.get('subs').filter(s=>s.student===student).sort((a,b)=>b.at-a.at)},
+ async submit({taskId,student,file,note}){ // ارفع الملف الفعلي للسيرفر هنا
+  const a=DB.get('subs');a.push({id:Date.now(),taskId,student,fileName:file?file.name:'',fileSize:file?file.size:0,note,at:Date.now()});DB.set('subs',a)}
+};
+/* ===== الواجهة ===== */
+const $=s=>document.querySelector(s),esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=t=>new Date(t).toLocaleString('ar-JO',{dateStyle:'medium',timeStyle:'short'});
+const isOpen=t=>!t.closed&&Date.now()<t.deadline;
+const left=t=>{const m=Math.floor((t-Date.now())/6e4),d=Math.floor(m/1440),h=Math.floor(m%1440/60);return 'باقي '+(d?d+' يوم و':'')+(d||h?h+' ساعة':(m%60)+' دقيقة')};
+let me='',view='home',flt='all';try{me=localStorage.getItem('me')||''}catch(e){}
+function toast(t){const e=$('#ts');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2200)}
+function closeSh(){$('#sh').classList.remove('on');$('#ov').classList.remove('on')}
+$('#ov').onclick=closeSh;
+async function openTask(id){
+ const t=(await api.getTasks()).find(x=>x.id===id),h=await api.getMySubmissions(me),m=h.filter(s=>s.taskId===id),o=isOpen(t);
+ $('#sh').innerHTML=`<div class="grip"></div><h2>${esc(t.title)}</h2><p style="margin:4px 0">${esc(t.desc)||''}</p>
+ <div class="mu">${o?left(t.deadline)+' · ':''}آخر موعد ${fmt(t.deadline)}</div>
+ ${o?`<label class="dz" id="dz"><input type="file" id="fl"><span id="fn">📎 اضغط لاختيار ملف الحل</span></label><textarea id="nt" rows="2" placeholder="ملاحظة للمعلم (اختياري)"></textarea>
+ <button class="btn" id="sb">${m.length?'تحديث التسليم':'تسليم الحل'}</button>${m.length?'<p class="mu" style="margin-bottom:0">التحديث بيحل مكان تسليمك الأخير عند المعلم، وكل نسخك محفوظة هون.</p>':''}`:'<div class="em" style="padding:20px 0 4px">انتهى وقت التسليم لهذي المهمة</div>'}
+ <h2 style="font-size:1rem;margin-top:18px">سجل تسليماتك</h2>
+ <div class="tl">${m.map((s,i)=>`<div class="${i?'':'l'}"><b>${i?'نسخة سابقة':'آخر تسليم'}</b><div class="mu">${fmt(s.at)}</div>📎 ${esc(s.fileName)||'بدون ملف'}${s.note?`<div class="mu">${esc(s.note)}</div>`:''}</div>`).join('')||'<span class="mu">ما سلّمت بعد</span>'}</div>`;
+ $('#sh').classList.add('on');$('#ov').classList.add('on');
+ if(!o)return;
+ $('#fl').onchange=e=>{const f=e.target.files[0];$('#fn').textContent=f?'✓ '+f.name:'📎 اضغط لاختيار ملف الحل';$('#dz').classList.toggle('f',!!f)};
+ $('#sb').onclick=async()=>{const f=$('#fl').files[0],n=$('#nt').value.trim();if(!f&&!n)return toast('أرفق ملف أو اكتب ملاحظة');
+  $('#sb').disabled=true;await api.submit({taskId:id,student:me,file:f,note:n});closeSh();toast(m.length?'تم تحديث التسليم':'تم التسليم');render()}
+}
+async function render(){
+ const r=$('#root');
+ if(!me){r.innerHTML=`<div class="lg"><div class="box"><h1 style="margin:0">أهلاً فيك 👋</h1><div class="mu">اكتب اسمك الكامل لتشوف مهامك</div><input id="nm" placeholder="الاسم الكامل"><button class="btn" id="go">دخول</button></div></div>`;
+  $('#go').onclick=()=>{const v=$('#nm').value.trim();if(!v)return;me=v;try{localStorage.setItem('me',v)}catch(e){}render()};return}
+ const tasks=(await api.getTasks()).sort((a,b)=>(isOpen(b)-isOpen(a))||a.deadline-b.deadline),mine=await api.getMySubmissions(me),done=new Set(mine.map(s=>s.taskId));
+ const cnt=tasks.filter(t=>done.has(t.id)).length,pc=tasks.length?cnt/tasks.length*100:0;
+ let body='';
+ if(view==='log')body=mine.length?`<div class="tl">${mine.map(s=>{const t=tasks.find(x=>x.id===s.taskId);return `<div><b>${esc(t?t.title:'مهمة محذوفة')}</b><div class="mu">${fmt(s.at)}</div>📎 ${esc(s.fileName)||'بدون ملف'}</div>`}).join('')}</div>`:'<div class="em">لسا ما سلّمت أي مهمة</div>';
+ else{
+  const L=tasks.filter(t=>flt=='open'?isOpen(t)&&!done.has(t.id):flt=='done'?done.has(t.id):1);
+  body=`<div class="chips">${[['all','الكل'],['open','المطلوبة'],['done','المسلَّمة']].map(([k,n])=>`<button class="chip ${flt==k?'a':''}" data-f="${k}">${n}</button>`).join('')}</div>`+
+  (L.map(t=>{const o=isOpen(t),d=done.has(t.id);return `<div class="rc ${o?'':'x'}" data-id="${t.id}">${d?'<span class="st">تم التسليم</span>':!o?'<span class="st cl">مغلقة</span>':''}
+   <h3>${esc(t.title)}</h3><p>${esc(t.desc)}</p><div class="cut"></div><div class="ft"><span>${fmt(t.deadline)}</span><span class="${o&&t.deadline-Date.now()<864e5&&!d?'u':''}">${o?left(t.deadline):d?'لا يوجد تعديل مطلوب':'انتهى الوقت'}</span></div></div>`}).join('')||'<div class="em">ما في مهام هون حالياً 🎉</div>')}
+ r.innerHTML=`<div class="top"><div><small>أهلاً</small><h1>${esc(me)}</h1></div><button class="av" id="out" title="تبديل الحساب">${esc(me[0])}</button></div>
+ <main><div class="hero"><span class="n">${cnt}</span> من ${tasks.length} مهام مسلَّمة<div class="bar"><i style="width:${pc}%"></i></div></div>
+ <div class="seg"><button data-v="home" class="${view=='home'?'a':''}">المهام</button><button data-v="log" class="${view=='log'?'a':''}">سجل تسليماتي</button></div>${body}</main>`;
+ r.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{view=b.dataset.v;render()});
+ r.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{flt=b.dataset.f;render()});
+ r.querySelectorAll('.rc').forEach(b=>b.onclick=()=>openTask(+b.dataset.id));
+ $('#out').onclick=()=>{if(confirm('تبديل الحساب؟')){me='';try{localStorage.removeItem('me')}catch(e){}render()}};
+}
+render();setInterval(()=>{if(!$('#sh').classList.contains('on')&&me)render()},60000);
+</script></body></html>
