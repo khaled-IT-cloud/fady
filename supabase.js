@@ -5,7 +5,7 @@
 // ⚠️ ضع الرابط هنا (يبدأ بـ https وينتهي بـ .co فقط، بدون أي إضافات)
 const SUPABASE_URL = 'https://roikpeuqdilrpexagigw.supabase.co';
 // ⚠️ ضع المفتاح هنا (يبدأ بـ sb_publishable_)
-const SUPABASE_ANON_KEY = 'sb_publishable_MB9oG4sohgXBHV6pg3ae9w_X5KVwIBd';
+const SUPABASE_ANON_KEY = 'sb_publishable_nLmHwNG9k0W3Ga1hXItBng_Y3i6n0_y';
 
 (function loadSupabase(){
   if(window.supabase)return;
