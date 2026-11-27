@@ -10,9 +10,12 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.6 "Readex Pro",system-ui,"Segoe UI",Tahoma,sans-serif}
 button{font:inherit}
-.top{background:var(--hd);color:#fff;padding:calc(18px + env(safe-area-inset-top,0px)) 18px 64px;display:flex;justify-content:space-between;align-items:center}
-.top small{opacity:.75;font-size:.8rem}.top h1{margin:0;font-size:1.3rem;font-weight:700}
-.av{width:44px;height:44px;border-radius:50%;border:2px solid var(--go);background:none;color:#fff;font-weight:700;font-size:1.05rem;cursor:pointer}
+.top{background:var(--hd);color:#fff;padding:calc(18px + env(safe-area-inset-top,0px)) 18px 64px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.top>div:first-child{flex:1;min-width:0}
+.top small{opacity:.75;font-size:.8rem}.top h1{margin:0;font-size:1.3rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.av{width:44px;height:44px;border-radius:50%;border:2px solid var(--go);background:none;color:#fff;font-weight:700;font-size:1.05rem;cursor:pointer;flex:none}
+.bell{position:relative;background:rgba(255,255,255,.15);border:0;color:#fff;width:42px;height:42px;border-radius:50%;font-size:1.2rem;cursor:pointer;flex:none}
+.bell .dot{position:absolute;top:4px;inset-inline-end:4px;background:var(--er);color:#fff;font-size:.62rem;font-weight:700;padding:0 5px;border-radius:10px;min-width:16px;line-height:1.5;border:2px solid var(--hd)}
 main{max-width:560px;margin:-46px auto 0;padding:0 14px 48px}
 .hero{background:var(--pa);border-radius:18px;padding:16px 18px;box-shadow:0 10px 28px #0b4a4230;margin-bottom:14px}
 .hero .n{font-size:2rem;font-weight:700;color:var(--pr)}.bar{height:8px;background:var(--bd);border-radius:8px;overflow:hidden;margin-top:8px}
@@ -29,6 +32,8 @@ main{max-width:560px;margin:-46px auto 0;padding:0 14px 48px}
 .st{position:absolute;inset-inline-end:14px;top:12px;transform:rotate(-7deg);border:2px solid var(--pr);color:var(--pr);padding:1px 9px;border-radius:7px;font-weight:700;font-size:.78rem}
 .st.cl{border-color:var(--er);color:var(--er)}
 .st.rj{border-color:var(--er);color:var(--er);background:color-mix(in srgb,var(--er) 10%,transparent)}
+.st.soon{border-color:var(--go);color:var(--go);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 .ov{position:fixed;inset:0;background:#0009;opacity:0;pointer-events:none;transition:opacity .25s;z-index:5}.ov.on{opacity:1;pointer-events:auto}
 .sh{position:fixed;inset-inline:0;bottom:0;max-width:560px;margin:auto;background:var(--pa);border-radius:22px 22px 0 0;padding:10px 18px calc(22px + env(safe-area-inset-bottom,0px));transform:translateY(105%);transition:transform .32s cubic-bezier(.2,.8,.2,1);max-height:90vh;overflow:auto;z-index:6}.sh.on{transform:none}
 .grip{width:40px;height:4px;background:var(--bd);border-radius:4px;margin:0 auto 14px}.sh h2{margin:0 0 4px;font-size:1.2rem}
@@ -49,7 +54,6 @@ textarea{width:100%;font:inherit;padding:12px;border-radius:12px;border:1px soli
 .tnote{margin-top:6px;padding:8px 12px;border-radius:10px;font-size:.85rem;border-inline-start:3px solid var(--pr);background:color-mix(in srgb,var(--pr) 8%,transparent)}
 .reject-box{margin-top:10px;padding:12px;border-radius:12px;background:color-mix(in srgb,var(--er) 10%,transparent);border:1px solid var(--er);font-size:.88rem}
 .reject-box b{color:var(--er)}
-/* ⭐ ملفات */
 .file-list{display:flex;flex-direction:column;gap:6px;margin-top:6px}
 .file-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--pa);border:1px solid var(--bd);border-radius:10px;font-size:.85rem}
 .file-item .ic{flex:none;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff}
@@ -58,19 +62,23 @@ textarea{width:100%;font:inherit;padding:12px;border-radius:12px;border:1px soli
 .file-item .dl{flex:none;background:var(--pr);color:var(--on);border:0;padding:5px 10px;border-radius:7px;font-size:.75rem;font-weight:600;cursor:pointer;text-decoration:none}
 .file-item .pv{flex:none;background:none;border:1px solid var(--bd);color:var(--ink);padding:5px 8px;border-radius:7px;font-size:.75rem;cursor:pointer}
 .file-empty{font-size:.8rem;color:var(--mu);font-style:italic;padding:4px 0}
-/* ⭐ رفع متعدد */
 .pick-list{display:flex;flex-direction:column;gap:6px;margin-top:10px}
 .pick-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg);border-radius:10px;border:1px solid var(--bd);font-size:.85rem}
 .pick-item .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr}
 .pick-item .rm{flex:none;background:none;border:0;color:var(--er);font-size:1.1rem;cursor:pointer;padding:0 6px}
-.add-more{width:100%;background:none;border:1px dashed var(--bd);color:var(--pr);padding:8px;border-radius:10px;cursor:pointer;font-weight:600;margin-top:8px;font-size:.85rem}
+/* ⭐ إشعارات */
+.notif-item{padding:12px 14px;border-bottom:1px solid var(--bd);cursor:pointer}
+.notif-item.unread{background:color-mix(in srgb,var(--pr) 6%,var(--pa))}
+.notif-item:last-child{border-bottom:0}
+.notif-item .t{font-weight:600;font-size:.92rem;margin-bottom:2px}
+.notif-item .b{font-size:.85rem;color:var(--mu)}
+.notif-item .w{font-size:.72rem;color:var(--mu);margin-top:4px}
 button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--go);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style></head><body>
 <div id="root"></div>
 <div class="ov" id="ov"></div><section class="sh" id="sh"></section><div class="ts" id="ts"></div>
 <script>
-/* ===== IndexedDB ===== */
 const IDB={
  db:null,
  open(){if(this.db)return Promise.resolve(this.db);return new Promise((res,rej)=>{
@@ -79,25 +87,17 @@ const IDB={
    req.onsuccess=()=>{this.db=req.result;res(this.db)};req.onerror=()=>rej(req.error);
  })},
  async put(file){
-  const db=await this.open();
-  const id='f_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);
+  const db=await this.open();const id='f_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);
   const rec={id,blob:file,name:file.name,size:file.size,type:file.type||'application/octet-stream'};
-  return new Promise((res,rej)=>{
-   const tx=db.transaction('files','readwrite');tx.objectStore('files').put(rec);
-   tx.oncomplete=()=>res({fileId:id,name:rec.name,size:rec.size,type:rec.type});
-   tx.onerror=()=>rej(tx.error);
-  });
- },
+  return new Promise((res,rej)=>{const tx=db.transaction('files','readwrite');tx.objectStore('files').put(rec);
+   tx.oncomplete=()=>res({fileId:id,name:rec.name,size:rec.size,type:rec.type});tx.onerror=()=>rej(tx.error)})},
  async get(id){const db=await this.open();return new Promise((res,rej)=>{
    const tx=db.transaction('files','readonly');const r=tx.objectStore('files').get(id);
-   r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);})},
- async delete(id){const db=await this.open();return new Promise((res,rej)=>{
+   r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})},
+ async deleteMany(ids){const db=await this.open();for(const id of ids){await new Promise((res,rej)=>{
    const tx=db.transaction('files','readwrite');tx.objectStore('files').delete(id);
-   tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error);})},
- async deleteMany(ids){for(const id of ids)await this.delete(id)}
+   tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error)})}}
 };
-
-/* ===== أدوات الملفات ===== */
 const MAX_SIZE=10*1024*1024;
 const ALLOWED=['application/pdf','image/png','image/jpeg','image/jpg','image/webp','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/zip','text/plain'];
 function fileIcon(type,name){
@@ -130,19 +130,16 @@ async function previewFile(fileId,name,type){
  }else{window.open(url,'_blank');setTimeout(()=>URL.revokeObjectURL(url),60000)}
 }
 
-/* ===== طبقة البيانات ===== */
 const DB={get(k){try{return JSON.parse(localStorage.getItem(k))||[]}catch(e){return[]}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const api={
  async getClasses(){return DB.get('classes')},
  async getTasks(){return DB.get('tasks')},
  async getMySubmissions(student){return DB.get('subs').filter(s=>s.student===student).sort((a,b)=>b.at-a.at)},
  async registerStudent(name,classId){
-   const a=DB.get('students')||[];
-   const i=a.findIndex(s=>s.name===name);
+   const a=DB.get('students')||[];const i=a.findIndex(s=>s.name===name);
    if(i<0)a.push({name,classId,at:Date.now()});else a[i].classId=classId;
    DB.set('students',a);
  },
- // ⭐ جديد: رفع ملفات ثم حفظ التسليم
  async submit({taskId,student,classId,files,note}){
    const meta=[];
    for(const f of files){const m=await IDB.put(f);meta.push(m)}
@@ -151,10 +148,10 @@ const api={
    DB.set('subs',a);
  }
 };
-/* ===== الواجهة ===== */
 const $=s=>document.querySelector(s),esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt=t=>new Date(t).toLocaleString('ar-JO',{dateStyle:'medium',timeStyle:'short'});
 const isOpen=t=>!t.closed&&Date.now()<t.deadline;
+const isSoon=t=>isOpen(t)&&t.deadline-Date.now()<24*3600*1000;
 const left=t=>{const m=Math.floor((t-Date.now())/6e4),d=Math.floor(m/1440),h=Math.floor(m%1440/60);return 'باقي '+(d?d+' يوم و':'')+(d||h?h+' ساعة':(m%60)+' دقيقة')};
 const stLabel=st=>({pending:'بانتظار المراجعة',accepted:'مقبول ✓',rejected:'مرفوض ✗',reviewed:'تمت المراجعة'}[st||'pending']);
 const stClass=st=>({pending:'pending',accepted:'accepted',rejected:'rejected',reviewed:'reviewed'}[st||'pending']);
@@ -163,6 +160,61 @@ try{me=localStorage.getItem('me')||'';myClassId=+(localStorage.getItem('myClassI
 function toast(t){const e=$('#ts');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2200)}
 function closeSh(){$('#sh').classList.remove('on');$('#ov').classList.remove('on')}
 $('#ov').onclick=closeSh;
+
+/* ⭐ إشعارات الطالب (محسوبة لحظياً) */
+function notifSeenKey(){return 'notifSeen_'+me}
+function getSeen(){try{return +(localStorage.getItem(notifSeenKey())||0)}catch(e){return 0}}
+function setSeen(t){try{localStorage.setItem(notifSeenKey(),t)}catch(e){}}
+function computeNotifs(tasks,mine){
+ const seen=getSeen(),notifs=[];
+ // مهام جديدة (لم يسلّمها الطالب) — نعتبرها جديدة لو المهمة أُنشئت بعد آخر قراءة
+ tasks.forEach(t=>{
+  const id=t.id;
+  if(id>seen&&isOpen(t)&&!mine.find(s=>s.taskId===t.id)){
+    notifs.push({key:'new_'+id,at:id,type:'new',title:'مهمة جديدة: '+t.title,
+      body:'الموعد: '+fmt(t.deadline),taskId:id});
+  }
+ });
+ // تسليمات مرفوضة
+ const byTask={};mine.forEach(s=>{if(!byTask[s.taskId]||s.at>byTask[s.taskId].at)byTask[s.taskId]=s});
+ Object.entries(byTask).forEach(([tid,s])=>{
+   if(s.status==='rejected'&&(s.reviewedAt||s.at)>seen){
+     const t=tasks.find(x=>x.id===+tid);
+     notifs.push({key:'rej_'+s.id,at:s.reviewedAt||s.at,type:'rej',title:'تسليمك مرفوض: '+(t?t.title:''),
+       body:s.teacherNote||'راجع ملاحظة المعلم وأعد التسليم',taskId:+tid});
+   }
+ });
+ // مهام قاربت تنتهي (مفتوحة + ما سلّم)
+ tasks.forEach(t=>{
+   if(isSoon(t)&&!mine.find(s=>s.taskId===t.id)){
+     notifs.push({key:'soon_'+t.id,at:t.deadline-24*3600*1000,type:'soon',title:'اقترب موعد: '+t.title,
+       body:left(t.deadline),taskId:t.id});
+   }
+ });
+ return notifs.sort((a,b)=>b.at-a.at);
+}
+function updateBell(notifs){
+ const unseen=notifs.filter(n=>n.at>getSeen()).length;const dot=$('#bellDot');
+ if(!dot)return;
+ if(unseen){dot.style.display='';dot.textContent=unseen>9?'9+':unseen}else dot.style.display='none';
+}
+function notifSheet(notifs){
+ const seen=getSeen();
+ $('#sh').innerHTML=`<div class="grip"></div><h2>الإشعارات</h2>
+ ${notifs.length?notifs.slice(0,50).map(n=>{
+   const unread=n.at>seen;
+   return `<div class="notif-item ${unread?'unread':''}" data-nt="${n.taskId||''}">
+     <div class="t">${esc(n.title)}</div><div class="b">${esc(n.body)}</div>
+     <div class="w">${fmt(n.at)}</div></div>`;
+ }).join(''):'<div class="em">ما في إشعارات جديدة</div>'}
+ <button class="btn" id="markRead" style="background:var(--bg);color:var(--pr);border:1px solid var(--pr)">تحديد الكل كمقروء</button>`;
+ $('#sh').classList.add('on');$('#ov').classList.add('on');
+ $('#markRead').onclick=()=>{setSeen(Date.now());closeSh();render()};
+ $('#sh').querySelectorAll('[data-nt]').forEach(el=>el.onclick=()=>{
+   const tid=+el.dataset.nt;setSeen(Date.now());closeSh();
+   if(tid)openTask(tid);else render();
+ });
+}
 
 function filesHTML(files,legacyName){
  if(files&&files.length){
@@ -190,34 +242,29 @@ async function openTask(id){
    <div id="pickList" class="pick-list"></div>
    <textarea id="nt" rows="2" placeholder="ملاحظة للمعلم (اختياري)"></textarea>
    <button class="btn" id="sb">${wasRejected?'إعادة التسليم بعد الرفض ↻':m.length?'تحديث التسليم':'تسليم الحل'}</button>
-   <p class="mu" style="margin-bottom:0">الحد الأقصى: 10MB لكل ملف · يُسمح PDF, صور, Word, ZIP, TXT</p>`
-   :'<div class="em" style="padding:20px 0 4px">انتهى وقت التسليم لهذي المهمة</div>'}
+   <p class="mu" style="margin-bottom:0">الحد الأقصى: 10MB لكل ملف</p>`
+   :'<div class="em" style="padding:20px 0 4px">انتهى وقت التسليم</div>'}
  <h2 style="font-size:1rem;margin-top:18px">سجل تسليماتك</h2>
  <div class="tl">${m.map((s,i)=>{
    const cls=s.status==='accepted'?'acc':s.status==='rejected'?'rej':i?'':'l';
    return `<div class="${cls}"><b>${i?'نسخة سابقة':'آخر تسليم'}</b> <span class="badge-status ${stClass(s.status)}">${stLabel(s.status)}</span>
-   <div class="mu">${fmt(s.at)}</div>
-   ${filesHTML(s.files,s.fileName)}
+   <div class="mu">${fmt(s.at)}</div>${filesHTML(s.files,s.fileName)}
    ${s.note?`<div class="mu">📝 ${esc(s.note)}</div>`:''}
    ${s.teacherNote?`<div class="tnote">📝 <b>ملاحظة المعلم:</b> ${esc(s.teacherNote)}</div>`:''}
    </div>`;
  }).join('')||'<span class="mu">ما سلّمت بعد</span>'}</div>`;
  $('#sh').classList.add('on');$('#ov').classList.add('on');
- // ربط أزرار الملفات (حتى في السجل)
  $('#sh').querySelectorAll('[data-dl]').forEach(b=>b.onclick=()=>downloadFile(b.dataset.dl,b.dataset.nm));
  $('#sh').querySelectorAll('[data-pv]').forEach(b=>b.onclick=()=>previewFile(b.dataset.pv,b.dataset.nm,b.dataset.tp));
  if(!o)return;
- let picked=[]; // ⭐ الملفات المختارة
+ let picked=[];
  const renderPicked=()=>{
   const pl=$('#pickList');if(!pl)return;
   pl.innerHTML=picked.map((f,i)=>{
     const ic=fileIcon(f.type,f.name);
-    return `<div class="pick-item">
-      <div class="ic" style="background:${ic.color};width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff">${ic.label}</div>
-      <div class="nm">${esc(f.name)}</div>
-      <div class="sz" style="font-size:.75rem;color:var(--mu)">${humanSize(f.size)}</div>
-      <button class="rm" data-rm="${i}" title="إزالة">✕</button>
-    </div>`}).join('');
+    return `<div class="pick-item"><div class="ic" style="background:${ic.color};width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff">${ic.label}</div>
+      <div class="nm">${esc(f.name)}</div><div class="sz" style="font-size:.75rem;color:var(--mu)">${humanSize(f.size)}</div>
+      <button class="rm" data-rm="${i}" title="إزالة">✕</button></div>`}).join('');
   pl.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{picked.splice(+b.dataset.rm,1);renderPicked()});
   const fn=$('#fn');if(fn)fn.textContent=picked.length?`✓ ${picked.length} ملف مختار`:'📎 اضغط لاختيار ملفات الحل (متعدد)';
   const dz=$('#dz');if(dz)dz.classList.toggle('f',picked.length>0);
@@ -225,23 +272,18 @@ async function openTask(id){
  $('#fl').onchange=e=>{
   const files=[...e.target.files];
   for(const f of files){
-    const err=validateFile(f);
-    if(err){toast(err);continue}
-    // منع التكرار بنفس الاسم+الحجم
+    const err=validateFile(f);if(err){toast(err);continue}
     if(picked.some(p=>p.name===f.name&&p.size===f.size))continue;
     picked.push(f);
   }
-  e.target.value=''; // يسمح باختيار نفس الملف مرة ثانية
-  renderPicked();
+  e.target.value='';renderPicked();
  };
  $('#sb').onclick=async()=>{
   const n=$('#nt').value.trim();
   if(!picked.length&&!n)return toast('أرفق ملف أو اكتب ملاحظة');
   $('#sb').disabled=true;$('#sb').textContent='جارٍ الرفع...';
-  try{
-   await api.submit({taskId:id,student:me,classId:myClassId,files:picked,note:n});
-   closeSh();toast(m.length?'تم تحديث التسليم':'تم التسليم');render();
-  }catch(err){toast('فشل الرفع: '+(err.message||err));$('#sb').disabled=false}
+  try{await api.submit({taskId:id,student:me,classId:myClassId,files:picked,note:n});closeSh();toast(m.length?'تم تحديث التسليم':'تم التسليم');render()}
+  catch(err){toast('فشل الرفع: '+(err.message||err));$('#sb').disabled=false}
  };
 }
 
@@ -277,6 +319,9 @@ async function render(){
  const rejectedTasks=new Set(Object.entries(latestByTask).filter(([,s])=>s.status==='rejected').map(([k])=>+k));
  const cnt=tasks.filter(t=>done.has(t.id)).length,pc=tasks.length?cnt/tasks.length*100:0;
 
+ // ⭐ إشعارات
+ const notifs=computeNotifs(tasks,mine);
+
  let body='';
  if(view==='log'){
    body=mine.length?`<div class="tl">${mine.map(s=>{
@@ -292,25 +337,32 @@ async function render(){
   body=`<div class="chips">${[['all','الكل'],['open','المطلوبة'],['done','المسلَّمة']].map(([k,n])=>`<button class="chip ${flt==k?'a':''}" data-f="${k}">${n}</button>`).join('')}</div>`+
   (L.map(t=>{
     const o=isOpen(t),d=done.has(t.id),latest=latestByTask[t.id];
-    const rej=d&&latest&&latest.status==='rejected';
+    const rej=d&&latest&&latest.status==='rejected',soon=isSoon(t)&&!d;
     let badge='';
     if(rej)badge='<span class="st rj">مرفوض - أعد التسليم</span>';
     else if(d&&latest.status==='accepted')badge='<span class="st">مقبول ✓</span>';
     else if(d&&latest.status==='pending')badge='<span class="st">بانتظار المراجعة</span>';
     else if(!o)badge='<span class="st cl">مغلقة</span>';
+    else if(soon)badge='<span class="st soon">تنتهي قريباً</span>';
     return `<div class="rc ${o?'':'x'}" data-id="${t.id}">${badge}
      <h3>${esc(t.title)}</h3><p>${esc(t.desc)}</p><div class="cut"></div>
      <div class="ft"><span>${fmt(t.deadline)}</span><span class="${o&&t.deadline-Date.now()<864e5&&!d?'u':''}">${o?left(t.deadline):d?(rej?'يحتاج إعادة تسليم':'لا يوجد تعديل مطلوب'):'انتهى الوقت'}</span></div>
      </div>`;
-  }).join('')||'<div class="em">ما في مهام هون حالياً 🎉</div>')
+  }).join('')||'<div class="em">ما في مهام هون 🎉</div>')
  }
 
- r.innerHTML=`<div class="top"><div><small>📚 ${esc(cls.name)} · أهلاً</small><h1>${esc(me)}</h1></div><button class="av" id="out" title="تبديل الحساب">${esc(me[0])}</button></div>
+ r.innerHTML=`<div class="top">
+   <div><small>📚 ${esc(cls.name)} · أهلاً</small><h1>${esc(me)}</h1></div>
+   <button class="bell" id="bell">🔔<span class="dot" id="bellDot" style="display:none">0</span></button>
+   <button class="av" id="out">${esc(me[0])}</button>
+ </div>
  <main>
    <div class="hero"><span class="n">${cnt}</span> من ${tasks.length} مهام مسلَّمة${rejectedTasks.size?` · <b style="color:var(--er)">${rejectedTasks.size} مرفوض</b>`:''}<div class="bar"><i style="width:${pc}%"></i></div></div>
    <div class="seg"><button data-v="home" class="${view=='home'?'a':''}">المهام</button><button data-v="log" class="${view=='log'?'a':''}">سجل تسليماتي</button></div>
    ${body}
  </main>`;
+ updateBell(notifs);
+ $('#bell').onclick=()=>notifSheet(notifs);
  r.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{view=b.dataset.v;render()});
  r.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{flt=b.dataset.f;render()});
  r.querySelectorAll('.rc').forEach(b=>b.onclick=()=>openTask(+b.dataset.id));
@@ -318,5 +370,6 @@ async function render(){
  r.querySelectorAll('[data-pv]').forEach(b=>b.onclick=()=>previewFile(b.dataset.pv,b.dataset.nm,b.dataset.tp));
  $('#out').onclick=()=>{if(confirm('تبديل الحساب؟')){me='';myClassId=null;try{localStorage.removeItem('me');localStorage.removeItem('myClassId')}catch(e){}render()}};
 }
-render();setInterval(()=>{if(!$('#sh').classList.contains('on')&&me&&myClassId)render()},60000);
+render();
+setInterval(()=>{if(!$('#sh').classList.contains('on')&&me&&myClassId)render()},60000);
 </script></body></html>
